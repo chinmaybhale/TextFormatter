@@ -25,7 +25,8 @@
         </Tab>
     </TabPane>
     <ToolBar prefHeight="7.0" prefWidth="640.0">
-        <Button mnemonicParsing="false" text="Open" fx:id = "open"/>
-        <Button disable="false" text="Save" fx:id = "save" onAction="#saveButtonClicked"/>
+        <Button mnemonicParsing="false" text="Open" fx:id = "open" onAction="#openFile"/>
+        <Button disable="false" text="Save" fx:id = "save" onAction="#saveFile"/>
+        <Button text="Convert" fx:id="convert" onAction="#convertFile" />
     </ToolBar>
 </VBox>
