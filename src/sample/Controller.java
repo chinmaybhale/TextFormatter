@@ -7,6 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 
@@ -41,10 +42,26 @@ public class Controller {
         // TODO: save file as output.txt from output tab
         String outputData = output.getText();
 
+        File file = chooser.showSaveDialog(save.getScene().getWindow());
+
+        if(file != null) {
+            createFile(outputData, file);
+        }
+
     }
 
     @FXML
     public void convertFile(Event e) {
         // TODO: take content from input pane and send to conversion
+    }
+
+    private void createFile(String outputData, File file) {
+        try {
+            FileWriter writer = new FileWriter(file);
+            writer.write(outputData);
+            writer.close();
+        } catch (IOException e) {
+            //TODO: deal with this error
+        }
     }
 }
