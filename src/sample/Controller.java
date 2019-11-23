@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -35,6 +36,9 @@ public class Controller {
         }
 
         input.setText(inputData);
+
+        Stage primary = (Stage) open.getScene().getWindow();
+        primary.setTitle(file.getName());
     }
 
     @FXML
