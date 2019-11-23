@@ -1,3 +1,4 @@
+
 package sample;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ class Formatter{
         ArrayList<ColumnBlock> blocks = new ArrayList<ColumnBlock>();
         ColumnBlock current = new ColumnBlock(1);
         String[] lines = inputString.split("\\r?\\n");
-        
+
         for(String line : lines){
             if(line.equals("-a2")){
                 if(current.isSingleColumn()){
@@ -31,14 +32,14 @@ class Formatter{
                 current.addLine(line);
             }
         }
-        
+
         blocks.add(current);
 
         String out = "";
         for(ColumnBlock a: blocks){
             out = out + a.format();
         }
-        
+
         return out;
     }
 }
@@ -46,20 +47,20 @@ class Formatter{
 class ColumnBlock{
     private int columns;
     String text;
-    
+
     public ColumnBlock(int columns){
         this.columns = columns;
         text = "";
     }
-    
+
     public boolean isSingleColumn(){
         return columns == 1;
     }
-    
+
     public void addLine(String text){
         this.text += text + "\n";
     }
-    
+
     // This assumes that lines are at most 35 characters long if columns = 2
     public String format(){
         if(columns == 1){
