@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0"
+      prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="sample.Controller">
+    <TabPane minWidth="600.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <Tab text="Input">
+            <AnchorPane minHeight="400" minWidth="600" prefHeight="400" prefWidth="600">
+                <TextArea prefHeight="330.0" prefWidth="600.0" fx:id = "input"/>
+            </AnchorPane>
+        </Tab>
+        <Tab text="Errors">
+            <AnchorPane minHeight="400" minWidth="600" prefHeight="400" prefWidth="600">
+                <TextArea prefHeight="328.0" prefWidth="600.0" AnchorPane.bottomAnchor="72.0"
+                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                          AnchorPane.topAnchor="0.0" fx:id = "errors"/>
+            </AnchorPane>
+        </Tab>
+        <Tab text="Output">
+            <AnchorPane minHeight="400" minWidth="600" prefHeight="400" prefWidth="600">
+                <TextArea prefHeight="330.0" prefWidth="600.0" fx:id = "output"/>
+            </AnchorPane>
+        </Tab>
+    </TabPane>
+    <ToolBar prefHeight="7.0" prefWidth="640.0">
+        <Button mnemonicParsing="false" text="Open" fx:id = "open" onAction="#openFile"/>
+        <Button disable="false" text="Save" fx:id = "save" onAction="#saveFile"/>
+        <Button text="Convert" fx:id="convert" onAction="#convertFile" />
+    </ToolBar>
+</VBox>
