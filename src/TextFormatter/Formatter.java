@@ -1,14 +1,9 @@
 
-package sample;
+package TextFormatter;
 
 import java.util.ArrayList;
 
 class Formatter{
-
-    // This main is for testing only
-    public static void main(String[] args){
-        System.out.println(formatColumns("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n-a2\nbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\nbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\nccccccccccccccccccccccccccccccccccc\ndddddddddddddddddddddddddddd\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\nbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\n-a1\nfffffffffffffffffffffffffffffffffffffffffffffffffffffff\nfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\nffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\nffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\nffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\n"));
-    }
 
     public static String formatColumns(String inputString){
         ArrayList<ColumnBlock> blocks = new ArrayList<ColumnBlock>();
@@ -60,8 +55,13 @@ class ColumnBlock{
     public void addLine(String text){
         this.text += text + "\n";
     }
-
-    // This assumes that lines are at most 35 characters long if columns = 2
+//<<<<<<< HEAD
+//
+//    // This assumes that lines are at most 35 characters long if columns = 2w
+//=======
+//
+//        // This assumes that lines are at most 35 characters long if columns = 2
+//        >>>>>>> ccdea80eb77ab76f6fb79ba72290bc558c0f7aec
     public String format(){
         if(columns == 1){
             return text;

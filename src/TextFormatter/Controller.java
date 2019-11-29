@@ -1,4 +1,4 @@
-package sample;
+package TextFormatter;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
