@@ -147,13 +147,13 @@ class ColumnBlock{
     public void addLine(String text){
         this.text += text + "\n";
     }
-<<<<<<< HEAD
-    
-    // This assumes that lines are at most 35 characters long if columns = 2w
-=======
-
-    // This assumes that lines are at most 35 characters long if columns = 2
->>>>>>> ccdea80eb77ab76f6fb79ba72290bc558c0f7aec
+//<<<<<<< HEAD
+//
+//    // This assumes that lines are at most 35 characters long if columns = 2w
+//=======
+//
+//        // This assumes that lines are at most 35 characters long if columns = 2
+//        >>>>>>> ccdea80eb77ab76f6fb79ba72290bc558c0f7aec
     public String format(){
         if(columns == 1){
             return text;
