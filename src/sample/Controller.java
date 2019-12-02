@@ -32,6 +32,13 @@ public class Controller {
     private FileChooser chooser = new FileChooser();
 
     /**
+     * Constructor, passing reference of error text area to the Errors class
+     */
+    public Controller() {
+        Errors.setErrorTextArea(errors);
+    }
+
+    /**
      * This method is called upon when the open button is clicked
      * A file chooser opens up a dialog box for the user to browse the directories
      * for the file. The file is returned when the user clicks open in the dialog box.

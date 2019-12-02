@@ -20,9 +20,9 @@ public class Errors {
      * This method is used to initialize the errors TextArea by
      * passing the control from the Controller class.
      *
-     * @param errors is the reference to the errors TextArea in the GUI
+     * @param error is the reference to the errors TextArea in the GUI
      */
-    public void setErrors(TextArea errors) {this.errors = errors;}
+    public static void setErrorTextArea(TextArea error) {errors = error;}
 
     /**
      * This class is called when the parsed command does not exist or
