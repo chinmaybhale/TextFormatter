@@ -310,7 +310,7 @@ class Formatter{
 
 	public String doubleSpace(String input) {		//adds new line to the end output.
 		input = input.trim();
-		String output = input + "\n\n";
+		String output = input + "\n";
 		return output;
 	}
 	
@@ -358,7 +358,9 @@ class Formatter{
 					
 				} else if(align == 3) {		//equal spacing
 					output = output + equalSpacing(input, line.length()) + "\n";
-				}
+				}				
+			} else if(line.startsWith("-") {
+				output = output + line;
 			}
 			
 		}
@@ -393,6 +395,8 @@ class Formatter{
 				} else if (double_spaced == false) {	//single spaced on.
 					output = output + line + "\n";
 				}
+			} else if(line.startsWith("-") {
+				output = output + line;
 			}
 		}
 		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
@@ -415,6 +419,8 @@ class Formatter{
 				} else if(b == 0) {
 					output = output + line + "\n";
 				}
+			} else if(line.startsWith("-") {
+				output = output + line;
 			}
 		}
 		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
