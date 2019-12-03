@@ -1,9 +1,0 @@
-abcd de   
-fghij     
-ab        
-ababababab
-ababababab
-a         
-ab cd
-eg gh
-a    
