@@ -13,6 +13,10 @@ class Formatter{
     protected boolean double_spaced = false;
     protected boolean two_column = false;
 
+	public static void main(String[] args){
+		System.out.println(blankSpaces("oufhoeihfoi\nwpihefoiwhe\n-b3\nwihfeoiwhe\nwiehfowiehf"));
+	}
+
     public String formatWrap(String inputString){
         String output = "";
         String[] lines = inputString.split("\\r?\\n");
@@ -399,26 +403,45 @@ class Formatter{
 		return output;
 	}
 	
-	public String blankSpaces(String input) {
-		String output = "";
-		String[] lines = input.split("\\r?\\n");
-		int number = 0; 
-		 
-		for(String line: lines) {
-			if(line.startsWith("-b")) {
-				number = Integer.parseInt(line.trim().substring(2));
-				b = 1;
-			} else if(!line.startsWith("-")) {
-				if(b == 1) {
-					output = output + blankLines(number) + "\n";
-					b = 0;
-				} else if(b == 0) {
-					output = output + line + "\n";
+	public static String blankSpaces(String input) {
+		String out = "";
+		for(String line : input.split("\\r?\\n")){
+			if(line.startsWith("-b"))
+			{
+				for(int i = 0; i < Integer.parseInt(line.trim().substring(2)); i++)
+				{
+					out += "\n";
 				}
 			}
+			else{
+				out += line + "\n";
+			}
 		}
+
+		String output = out;
+		
 		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
+		
 		return output;
+		// String output = "";
+		// String[] lines = input.split("\\r?\\n");
+		// int number = 0; 
+		 
+		// for(String line: lines) {
+		// 	if(line.startsWith("-b")) {
+		// 		number = Integer.parseInt(line.trim().substring(2));
+		// 		b = 1;
+		// 	} else if(!line.startsWith("-")) {
+		// 		if(b == 1) {
+		// 			output = output + blankLines(number) + "\n";
+		// 			b = 0;
+		// 		} else if(b == 0) {
+		// 			output = output + line + "\n";
+		// 		}
+		// 	}
+		// }
+		// while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
+		// return output;
 	}	
 }
 
