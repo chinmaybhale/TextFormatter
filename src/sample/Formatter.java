@@ -8,6 +8,7 @@ import java.util.List;
 class Formatter{
     protected int line_length = 80;
     protected int align = 0;  // left = 0, right, centered, equal
+    protected int b = 0; //blankspaces:0 = off, 1 = on; 
     protected boolean wrap = false;
     protected boolean double_spaced = false;
     protected boolean two_column = false;
@@ -344,7 +345,7 @@ class Formatter{
 			}
 			
 		}
-		output = output.substring(0, output.length()-2);
+		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
 		return output;
 	}
 	
@@ -357,7 +358,7 @@ class Formatter{
 				
 			}
 		}
-		output = output.substring(0, output.length()-2);
+		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
 		return output;
 	}
 	
@@ -377,7 +378,7 @@ class Formatter{
 				}
 			}
 		}
-		output = output.substring(0, output.length()-2);
+		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
 		return output;
 	}
 	
@@ -398,7 +399,7 @@ class Formatter{
 				}
 			}
 		}
-		output = output.substring(0, output.length()-2);
+		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
 		return output;
 	}	
 }
