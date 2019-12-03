@@ -36,7 +36,7 @@ public class Errors {
      */
     public static void UnrecognizedCommandError(String message, int line) {
         String err = "Line " + line + ": Unrecognized Command, " + message;
-        errors.setText(err);
+        errors.setText(buildErr(err));
     }
 
     /**
@@ -48,8 +48,8 @@ public class Errors {
      * @param line This is the line number on which the error is encountered
      */
     public static void InvalidCommandError(String message, int line) {
-        String err = "Line" + line + ": Invalid Command, " + message;
-        errors.setText(err);
+        String err = "Line " + line + ": Invalid Command, " + message;
+        errors.setText(buildErr(err));
     }
 
     /**
@@ -60,8 +60,13 @@ public class Errors {
      * @param line This is the line number on which the error is encountered
      */
     public static void TitleLengthOverflowError(String message, int line) {
-        String err = "Line" + line + ": Title Length Overflow, " + message;
-        errors.setText(err);
+        String err = "Line " + line + ": Title Length Overflow, " + message;
+        errors.setText(buildErr(err));
+    }
+
+    private static String buildErr(String err) {
+        String errList = errors.getText();
+        return errList + "\n" + err;
     }
 
 }

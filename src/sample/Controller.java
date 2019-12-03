@@ -67,7 +67,6 @@ public class Controller {
      */
     @FXML
     public void saveFile(Event e) {
-        // TODO: save file as output.txt from output tab
         String outputData = output.getText();
 
         File file = chooser.showSaveDialog(save.getScene().getWindow());
