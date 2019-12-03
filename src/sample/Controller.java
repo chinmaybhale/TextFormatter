@@ -7,11 +7,13 @@
  */
 package sample;
 
+import com.sun.glass.ui.Pixels;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -53,6 +55,7 @@ public class Controller {
             //TODO: error case, file not found!
         }
 
+        input.setFont(Font.font("monospaced"));
         input.setText(inputData);
 
         Stage primary = (Stage) open.getScene().getWindow();
@@ -92,9 +95,21 @@ public class Controller {
         errors.setText("");
         Errors.setErrorArea(errorPane, errors);
 
+        String string = input.getText();
         Sanitize sanitizer = new Sanitize();
-        String sanitizedOutput = sanitizer.sanitize(input.getText());
-        output.setText(sanitizedOutput);
+        Formatter formatter = new Formatter();
+
+        string = sanitizer.sanitize(string);
+        //string = formatter.formatWrap(string);
+        //string = Formatter.lineLength(string);
+        //string = formatter.justification(string);
+        //string = formatter.doubleSpaces(string);
+        //string = formatter.formatTitle(string);
+        //string = formatter.blankSpaces(string);
+        string = Formatter.formatColumns(string);
+
+        output.setFont(Font.font("monospaced"));
+        output.setText(string);
     }
 
     /**
