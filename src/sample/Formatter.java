@@ -392,9 +392,11 @@ class Formatter{
 						}
 					}
 					line = firstLine;
+					firstLine = "";
 					if(secondLine.trim().length() != 0){
 					    line = line + "\n" + secondLine.trim();
                     }
+					secondLine = "";
 					output = output + line + "\n";
 					p = false;
 				} else if(!p){
