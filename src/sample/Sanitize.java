@@ -5,6 +5,8 @@ import java.util.List;
 
 //class marks all lines with errors, throws errors, and deletes error lines at end to return clean input
 public class Sanitize extends Formatter {
+    private int line_length = max;
+
     private ArrayList<Integer> errorLines = new ArrayList<Integer>();
 
     public String sanitize(String inputStrings){

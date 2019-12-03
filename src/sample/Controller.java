@@ -101,7 +101,7 @@ public class Controller {
 
         string = sanitizer.sanitize(string);
         string = formatter.formatWrap(string);
-        string = Formatter.lineLength(string);
+        string = formatter.lineLength(string);
         string = formatter.justification(string);
         string = formatter.indentation(string);
         string = formatter.doubleSpaces(string);

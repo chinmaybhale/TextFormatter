@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 class Formatter{
-    protected int line_length = 80;
+    protected int max = 80;
     protected int align = 0;  // left = 0, right, centered, equal
     protected int b = 0; //blankspaces:0 = off, 1 = on; 
     protected boolean wrap = false;
@@ -68,10 +68,10 @@ class Formatter{
                 for(int i = 0; i < titleLength; i++){
                     underline += "-";
                 }
-                line = centerJust(line, line.length()) + "\n" + centerJust(underline, line.length());
+                line = centerJust(line, max) + "\n" + centerJust(underline, max);
                 titleToken = false;
                 output = output + line + "\n";
-                System.out.println(output);
+                System.out.println(line);
             }
             else{
                 output = output + line + "\n";
@@ -82,9 +82,9 @@ class Formatter{
         return output;
     }
 
-    public static String lineLength(String inputString)
+    public String lineLength(String inputString)
     {
-        int max = 80;
+        //int max = 80;
         
         String output = "";
         for(String line: inputString.split("\\r?\\n"))
@@ -237,7 +237,7 @@ class Formatter{
 			}
 		}
 		
-		
+
 		return output;
 	}
 		 
@@ -247,6 +247,9 @@ class Formatter{
 		String output = "";
 		input = input.trim();
 		int spaces = lineLength - input.length();
+		System.out.println(input);
+		System.out.println(input.length());
+		System.out.println(spaces);
 		if(spaces%2 == 1) {
 			output = output + " ";
 		}
@@ -259,9 +262,8 @@ class Formatter{
 		for(int i = 1; i <= (spaces/2); i++) {	//adds spaces in the back of sentence to make it equal to line length.
 			output = output + " ";
 		}
+		System.out.println(output);
 		return output;
-	
-	
 	}
 
 
@@ -384,11 +386,12 @@ class Formatter{
 					}
 					//make sure not longer than line length
 					for(int i = 0; i < words.length; i++){
-						if((line1 + words[i].length()) <= line.length()){
+						if((firstLine.length() + words[i].length()) <= max) {
 							firstLine = firstLine + " " + words[i];
 						}
 						else{
-							secondLine = " " + words[i];
+							if(!words[i].equals("\n"))
+								secondLine = " " + words[i];
 						}
 					}
 					line = firstLine;
@@ -397,9 +400,9 @@ class Formatter{
 					    line = line + "\n" + secondLine.trim();
                     }
 					secondLine = "";
-					output = output + line + "\n";
+					output = output + line + " ";
 					p = false;
-				} else if(!p){
+				} else {
 					output = output + line + "\n";
 				}
 			}
