@@ -79,7 +79,7 @@ public class Sanitize extends Formatter {
                                 }
                             break;
                             case "-p": // insert spaces
-                                if(align != 0) {
+                                if(align == 0) {
                                     try {
                                         Integer.parseInt(lines[i].substring(2));
                                     } catch (NumberFormatException e) {

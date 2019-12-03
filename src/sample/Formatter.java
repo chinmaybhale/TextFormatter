@@ -26,10 +26,13 @@ class Formatter{
             else{
                 if(!line.startsWith("-")){
                     if(wrap){
-                        output = output+ " " + line;
+                        output = output + line + " ";
                     }
                     else{
-                        output = output + "\n" + line;
+                    	if(!output.endsWith("\n")){
+                    		output = output + "\n";
+						}
+                        output = output + line + "\n";
                     }
                 }
                 else{
@@ -37,12 +40,16 @@ class Formatter{
                         output = "\n" + line + "\n";
                     }
                     else{
-                        output = "\n" + line;
+						if(!output.endsWith("\n")){
+							output = output + "\n";
+						}
+                        output = output + line + "\n";
                     }
                 }
 
             }
         }
+		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
         return output;
     }
 
@@ -57,12 +64,12 @@ class Formatter{
                 titleToken = true;
             }
             else if(!line.startsWith("-") && titleToken == true){
-                titleLength = line.length();
+                titleLength = line.trim().length();
                 for(int i = 0; i < titleLength; i++){
                     underline += "-";
                 }
-                line = line + "\n" + underline;
-                line = centerJust(line);
+                line = centerJust(line, line.length()) + "\n" + centerJust(underline, line.length());
+                //line = centerJust(line, line_length);
                 titleToken = false;
                 output = output + line + "\n";
             }
@@ -348,7 +355,7 @@ class Formatter{
 					output = output + centerJust(line, line.length()) + "\n";
 					
 				} else if(align == 3) {		//equal spacing
-					output = output + equalSpacing(input, line.length() + "\n");
+					output = output + equalSpacing(input, line.length()) + "\n";
 				}
 			}
 			
@@ -400,9 +407,10 @@ class Formatter{
 				number = Integer.parseInt(line.trim().substring(2));
 				b = 1;
 			} else if(!line.startsWith("-")) {
-				if(b = 1) {
+				if(b == 1) {
 					output = output + blankLines(number) + "\n";
-				} else if(b = 0) {
+					b = 0;
+				} else if(b == 0) {
 					output = output + line + "\n";
 				}
 			}
