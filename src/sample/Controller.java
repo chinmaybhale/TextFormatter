@@ -100,12 +100,12 @@ public class Controller {
         Formatter formatter = new Formatter();
 
         string = sanitizer.sanitize(string);
-        //string = formatter.formatWrap(string);
-        //string = Formatter.lineLength(string);
-        //string = formatter.justification(string);
-        //string = formatter.doubleSpaces(string);
-        //string = formatter.formatTitle(string);
-        //string = formatter.blankSpaces(string);
+        string = formatter.formatWrap(string);
+        string = Formatter.lineLength(string);
+        string = formatter.justification(string);
+        string = formatter.doubleSpaces(string);
+        string = formatter.formatTitle(string);
+        string = formatter.blankSpaces(string);
         string = Formatter.formatColumns(string);
 
         output.setFont(Font.font("monospaced"));
