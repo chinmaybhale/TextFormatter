@@ -89,7 +89,7 @@ class Formatter{
         for(String line: inputString.split("\\r?\\n"))
         {
                 String out = "";
-				
+
 				if(line.length() > 2 && line.trim().substring(0,3).equals("-a2"))
                 {
                         max = 35;
@@ -161,13 +161,13 @@ class Formatter{
         String[] lines = inputString.split("\\r?\\n");
 
         for(String line : lines){
-            if(line.equals("-a2")){
+            if(line.startsWith("-a2")){
                 if(current.isSingleColumn()){
                     blocks.add(current);
                     current = new ColumnBlock(2);
                 }
             }
-            else if(line.equals("-a1")){
+            else if(line.startsWith("-a1")){
                 if(!current.isSingleColumn()){
                     blocks.add(current);
                     current = new ColumnBlock(1);
