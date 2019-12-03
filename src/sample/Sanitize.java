@@ -86,7 +86,7 @@ public class Sanitize extends Formatter {
                             case "-p": // insert spaces
                                 if(align != 0) {
                                     try {
-                                        Integer.parseInt(lines[i].substring(2))
+                                        Integer.parseInt(lines[i].substring(2));
                                     } catch (NumberFormatException e) {
                                         //throw invalid num option
                                         E.InvalidCommandError("Invalid number following -p.", i);
@@ -101,9 +101,9 @@ public class Sanitize extends Formatter {
                                 break;
                             case "-b": //insert blank lines
                                 try {
-                                    Integer.parseInt(lines[i].substring(2))
+                                    Integer.parseInt(lines[i].substring(2));
                                 }
-                                catch (NumerFormatException e){
+                                catch (NumberFormatException e){
                                     //throw invalid num option
                                     E.InvalidCommandError("Invalid number following -b.", i);
                                     errorLines.add(i);
