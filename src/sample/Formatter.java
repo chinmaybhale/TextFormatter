@@ -369,13 +369,14 @@ class Formatter{
 		String secondLine = "";
 
 		for(String line: lines) {
+		    //if see -p command, store indentation number;
 			if(line.startsWith("-p")) {
 				number = Integer.parseInt(line.trim().substring(2));
 				p = true;
 			}
 			else if (!line.startsWith("-")) {
 				if(p){
-					words = line.split(" ");
+					words = line.trim().split(" ");
 					line1 = number;
 					//adds indentations
 					for(int j = 0; j < number; j++){
@@ -391,8 +392,8 @@ class Formatter{
 						}
 					}
 					line = firstLine;
-					if(secondLine.trim().length() == 0){
-					    line = "\n" + secondLine;
+					if(secondLine.trim().length() != 0){
+					    line = line + "\n" + secondLine;
                     }
 					output = output + line + "\n";
 					p = false;
