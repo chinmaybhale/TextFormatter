@@ -302,7 +302,6 @@ class Formatter{
 	public String justification(String input) {
 		String output = "";
 		String[] lines = input.split("\\r?\\n");
-		Formatter just = new Formatter();
 		for(String line: lines) {
 			if(line.startsWith("-l")) {			//left justified
 				align = 0;
@@ -315,16 +314,16 @@ class Formatter{
 			} else if(!line.startsWith("-")) {
 				
 				if(align == 0) {		//left justified
-					output = output + just.leftJust(line, line.length()) + "\n";
+					output = output + leftJust(line, line.length()) + "\n";
 					
 				} else if(align == 1) {		//right justified
-					output = output + just.rightJust(line, line.length()) + "\n";
+					output = output + rightJust(line, line.length()) + "\n";
 					
 				} else if(align == 2) {		//center align
-					output = output + just.centerJust(line, line.length()) + "\n";
+					output = output + centerJust(line, line.length()) + "\n";
 					
 				} else if(align == 3) {		//equal spacing
-					output = output + just.equalSpacing(input, line.length() + "\n");
+					output = output + equalSpacing(input, line.length() + "\n");
 				}
 			}
 			
@@ -349,7 +348,6 @@ class Formatter{
 	public String doubleSpaces(String input) {
 		String output = "";
 		String[] lines = input.split("\\r?\\n");
-		Formatter just = new Formatter();
 		for(String line: lines) {
 			if(line.startsWith("-d")) {
 				double_spaced = 1;
@@ -357,7 +355,7 @@ class Formatter{
 				double_spaced = 0;
 			} else if(!line.startsWith("-")) {
 				if(double_spaced == 1) {		//double spaced on.
-					output = output + just.doubleSpace(line) + "\n";
+					output = output + doubleSpace(line) + "\n";
 				} else if (double_spaced == 0) {	//single spaced on.
 					output = output + line + "\n";
 				}
@@ -370,7 +368,6 @@ class Formatter{
 	public String blankSpaces(String input) {
 		String output = "";
 		String[] lines = input.split("\\r?\\n");
-		Formatter just = new Formatter();
 		int number = 0; 
 		 
 		for(String line: lines) {
@@ -379,7 +376,7 @@ class Formatter{
 				b = 1;
 			} else if(!line.startsWith("-")) {
 				if(b = 1) {
-					output = output + just.blankLines(number) + "\n";
+					output = output + blankLines(number) + "\n";
 				} else if(b = 0) {
 					output = output + line + "\n";
 				}
@@ -388,6 +385,22 @@ class Formatter{
 		output = output.substring(0, output.length()-2);
 		return output;
 	}
+	
+    	public String leftJust(String input, int lineLength) {		//this is the only method that assumes that input is longer than line length.
+		input = input.trim();
+		String output = "";
+		char[] temp = input.toCharArray();
+		int i = 0;
+			while( i < input.length()) {
+  				System.out.print(temp[i]);
+  				i++;
+  				if(i == 79) {
+  					System.out.print("\n");
+  				}
+  			}
+		
+		return output;
+	}		
 }
 
 class ColumnBlock{
@@ -441,22 +454,6 @@ class ColumnBlock{
             return out;
         }
     }
-    
-    	public String leftJust(String input, int lineLength) {		//this is the only method that assumes that input is longer than line length.
-		input = input.trim();
-		String output = "";
-		char[] temp = input.toCharArray();
-		int i = 0;
-			while( i < input.length()) {
-  				System.out.print(temp[i]);
-  				i++;
-  				if(i == 79) {
-  					System.out.print("\n");
-  				}
-  			}
-		
-		return output;
-	}
 }
 
 
