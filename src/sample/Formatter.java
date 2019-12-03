@@ -169,7 +169,23 @@ class Formatter{
 
         return out;
     }
-
+	public String leftJust(String input, int lineLength) {		//this is the only method that assumes that input is longer than line length.
+		input = input.trim();
+		String output = "";
+		char[] temp = input.toCharArray();
+		int i = 0;
+		while( i < input.length()) {
+  			output = output + temp[i];
+  			i++;
+  			if(i == lineLength) {
+  				output = output + "\n";
+  			}
+  		}
+	
+		return output;
+	}	
+	
+	
     public String rightJust(String input, int lineLength) {
 		input = input.trim();
 		char[] temp = input.toCharArray();
@@ -384,23 +400,7 @@ class Formatter{
 		}
 		output = output.substring(0, output.length()-2);
 		return output;
-	}
-	
-    	public String leftJust(String input, int lineLength) {		//this is the only method that assumes that input is longer than line length.
-		input = input.trim();
-		String output = "";
-		char[] temp = input.toCharArray();
-		int i = 0;
-			while( i < input.length()) {
-  				System.out.print(temp[i]);
-  				i++;
-  				if(i == 79) {
-  					System.out.print("\n");
-  				}
-  			}
-		
-		return output;
-	}		
+	}	
 }
 
 class ColumnBlock{
