@@ -123,7 +123,7 @@ class Formatter{
                             out += "\n";                    
                         }
                     }
-                    if(out.charAt(out.length() - 1) != '\n'){
+                    if(out.length() > 0 && out.charAt(out.length() - 1) != '\n'){
                         int startOfCurrentLine = 0 > out.lastIndexOf("\n") ? 0 : out.lastIndexOf("\n") + 1;
                         while(out.substring(startOfCurrentLine).length() < max) out += " ";
                         out += "\n";
