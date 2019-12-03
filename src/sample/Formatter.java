@@ -89,17 +89,19 @@ class Formatter{
         for(String line: inputString.split("\\r?\\n"))
         {
                 String out = "";
-                if(line.length() > 2 && line.trim().substring(0,2).equals("-n"))
-                {
-                        max = Integer.parseInt(line.trim().substring(2));
-                }
-				else if(line.length() > 2 && line.trim().substring(0,3).equals("-a2"))
+				
+				if(line.length() > 2 && line.trim().substring(0,3).equals("-a2"))
                 {
                         max = 35;
                 }
-				else if(line.length() > 2 && line.trim().substring(0,3).equals("-a1"))
+				if(line.length() > 2 && line.trim().substring(0,3).equals("-a1"))
                 {
                         max = 80;
+                }
+
+                if(line.length() > 2 && line.trim().substring(0,2).equals("-n"))
+                {
+                        max = Integer.parseInt(line.trim().substring(2));
                 }
                 else{
                     String[] words = line.split(" ");
