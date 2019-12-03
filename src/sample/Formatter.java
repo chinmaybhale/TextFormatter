@@ -12,12 +12,7 @@ class Formatter{
     protected int b; // = 0 after insert
     protected boolean two_column;
 
-    //protected Errors E = new Errors();
-
-    public static void main(String[] args)
-    {
-        System.out.print(lineLength("-n10\nabcd de fghij\nab\nababababababababababa\n-n5\nab cd eg gh\na"));
-    }
+    protected Errors E = new Errors();
 
     public static String lineLength(String inputString)
     {
