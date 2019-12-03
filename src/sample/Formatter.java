@@ -393,7 +393,7 @@ class Formatter{
 					}
 					line = firstLine;
 					if(secondLine.trim().length() != 0){
-					    line = line + "\n" + secondLine;
+					    line = line + "\n" + secondLine.trim();
                     }
 					output = output + line + "\n";
 					p = false;
