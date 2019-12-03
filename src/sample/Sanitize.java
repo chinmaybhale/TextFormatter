@@ -113,7 +113,7 @@ public class Sanitize extends Formatter {
                 }
             }
         }
-        List<String> inputLines = Arrays.asList(lines);
+        List<String> inputLines = new ArrayList<>(Arrays.asList(lines));
         for(int k = inputLines.size()-1; k > -1; k--) {
             if (errorLines.contains(k)){
                 inputLines.remove(k);
