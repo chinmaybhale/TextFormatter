@@ -35,7 +35,7 @@ public class Errors {
      * @param line This is the line number on which the error is encountered
      */
     public static void UnrecognizedCommandError(String message, int line) {
-        String err = "Line" + line + ": Unrecognized Command, " + message;
+        String err = "Line " + line + ": Unrecognized Command, " + message;
         errors.setText(err);
     }
 
