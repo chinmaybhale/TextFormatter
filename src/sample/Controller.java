@@ -95,6 +95,9 @@ public class Controller {
     @FXML
     public void convertFile(Event e) {
         // TODO: take content from input pane and send to conversion
+        Sanitize sanitizer = new Sanitize();
+        String sanitizedOutput = sanitizer.sanitize(input.getText());
+        output.setText(sanitizedOutput);
     }
 
     /**
