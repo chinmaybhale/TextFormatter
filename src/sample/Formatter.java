@@ -26,10 +26,13 @@ class Formatter{
             else{
                 if(!line.startsWith("-")){
                     if(wrap){
-                        output = output+ " " + line;
+                        output = output + line + " ";
                     }
                     else{
-                        output = output + "\n" + line;
+                    	if(!output.endsWith("\n")){
+                    		output = output + "\n";
+						}
+                        output = output + line + "\n";
                     }
                 }
                 else{
@@ -37,12 +40,16 @@ class Formatter{
                         output = "\n" + line + "\n";
                     }
                     else{
-                        output = "\n" + line;
+						if(!output.endsWith("\n")){
+							output = output + "\n";
+						}
+                        output = output + line + "\n";
                     }
                 }
 
             }
         }
+		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
         return output;
     }
 
