@@ -267,43 +267,80 @@ class Formatter{
 	public String equalSpacing(String input, int lineLength) {
 		String output = "";
 		input = input.trim();
-		char[] temp = input.toCharArray();
-		int count = 0, spaces = 0, remainder = 0;
-		int extra = lineLength - input.length();
-		
-		while(count < input.length()) {
-			if(temp[count] == ' ') {		//counts the number of spaces.
-				spaces++;
-//				System.out.printf("Spaces: %d Line: %d\n", spaces, count);
+		String[] words = input.split(" ");
+
+		if(words.length == 1)
+			return input;
+
+		int spaceCount = words.length - 1;
+
+		int freeSpaces = lineLength - input.replace(" ","").length();
+
+		int dividedSpaces = freeSpaces / spaceCount;
+
+		int remainder = freeSpaces % spaceCount;
+
+		String space1 = "";
+
+		String space2 = "";
+
+		for(int i = 0; i < dividedSpaces; i++){
+			space1 += " ";
+			space2 += " ";
+		}
+
+
+		space2 += " ";
+
+
+		for(int i = 0; i < words.length; i++){
+			output += words[i];
+			if(i < remainder){
+				output += space2;
 			}
-			count++;
-		}
-		
-		String[] lines = input.split(" ");		//makes an array of all words in input.
-		remainder = extra%spaces;
-		spaces = extra/spaces;		//how many spaces to add between each word.
-		count = 0;
-//		System.out.println(remainder);
-//		System.out.println(spaces);
-		
-		for(int i = 0; i < lines.length - 1; i++) {
-			lines[i].trim();
-			for(int ii = 0; ii <= spaces; ii++) {		//adds spaces to each index of a word but not the last one.
-				lines[i] = lines[i] + " ";
+			else{
+				output += space1;
 			}
 		}
-		
-		for(int ii = 0; ii <= remainder; ii++) {
-			lines[ii] = lines[ii] + " ";
-		}
-		
-		for(int i = 0; i < lines.length - 1; i++) {
-			output = output + lines[i];
-		}
-		output = output + lines[lines.length-1];	//adds last word into output.
-		
-		
-		return output;
+
+		return output.trim();
+//		char[] temp = input.toCharArray();
+//		int count = 0, spaces = 0, remainder = 0;
+//		int extra = lineLength - input.length();
+//
+//		while(count < input.length()) {
+//			if(temp[count] == ' ') {		//counts the number of spaces.
+//				spaces++;
+////				System.out.printf("Spaces: %d Line: %d\n", spaces, count);
+//			}
+//			count++;
+//		}
+//
+//		String[] lines = input.split(" ");		//makes an array of all words in input.
+//		remainder = extra%spaces;
+//		spaces = extra/spaces;		//how many spaces to add between each word.
+//		count = 0;
+////		System.out.println(remainder);
+////		System.out.println(spaces);
+//
+//		for(int i = 0; i < lines.length - 1; i++) {
+//			lines[i].trim();
+//			for(int ii = 0; ii <= spaces; ii++) {		//adds spaces to each index of a word but not the last one.
+//				lines[i] = lines[i] + " ";
+//			}
+//		}
+//
+//		for(int ii = 0; ii <= remainder; ii++) {
+//			lines[ii] = lines[ii] + " ";
+//		}
+//
+//		for(int i = 0; i < lines.length - 1; i++) {
+//			output = output + lines[i];
+//		}
+//		output = output + lines[lines.length-1];	//adds last word into output.
+//
+//
+//		return output;
 		
 	}
 
@@ -347,10 +384,10 @@ class Formatter{
 					output = output + centerJust(line, line.length()) + "\n";
 					
 				} else if(align == 3) {		//equal spacing
-					output = output + equalSpacing(input, line.length()) + "\n";
+					output = output + equalSpacing(line, line.length()) + "\n";
 				}				
 			} else if(line.startsWith("-")) {
-				output = output + line;
+				output = output + line + "\n";
 			}
 			
 		}
@@ -455,25 +492,6 @@ class Formatter{
 		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
 		
 		return output;
-		// String output = "";
-		// String[] lines = input.split("\\r?\\n");
-		// int number = 0; 
-		 
-		// for(String line: lines) {
-		// 	if(line.startsWith("-b")) {
-		// 		number = Integer.parseInt(line.trim().substring(2));
-		// 		b = 1;
-		// 	} else if(!line.startsWith("-")) {
-		// 		if(b == 1) {
-		// 			output = output + blankLines(number) + "\n";
-		// 			b = 0;
-		// 		} else if(b == 0) {
-		// 			output = output + line + "\n";
-		// 		}
-		// 	}
-		// }
-		// while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
-		// return output;
 	}	
 }
 
@@ -493,13 +511,7 @@ class ColumnBlock{
     public void addLine(String text){
         this.text += text + "\n";
     }
-//<<<<<<< HEAD
-//
-//    // This assumes that lines are at most 35 characters long if columns = 2w
-//=======
-//
-//        // This assumes that lines are at most 35 characters long if columns = 2
-//        >>>>>>> ccdea80eb77ab76f6fb79ba72290bc558c0f7aec
+
     public String format(){
         if(columns == 1){
             return text;

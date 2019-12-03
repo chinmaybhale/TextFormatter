@@ -103,9 +103,10 @@ public class Controller {
         string = formatter.formatWrap(string);
         string = Formatter.lineLength(string);
         string = formatter.justification(string);
+        string = formatter.indentation(string);
         string = formatter.doubleSpaces(string);
         string = formatter.formatTitle(string);
-        string = formatter.blankSpaces(string);
+        string = Formatter.blankSpaces(string);
         string = Formatter.formatColumns(string);
 
         output.setFont(Font.font("monospaced"));
