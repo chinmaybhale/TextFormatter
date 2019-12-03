@@ -195,7 +195,7 @@ class Formatter{
 		while( i < input.length()) {
   			output = output + temp[i];
   			i++;
-  			if(i == lineLength) {
+  			if(i > lineLength) {
   				output = output + "\n";
   			}
   		}
