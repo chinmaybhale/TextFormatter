@@ -12,7 +12,76 @@ class Formatter{
     protected int b; // = 0 after insert
     protected boolean two_column;
 
-    protected Errors E = new Errors();
+    //protected Errors E = new Errors();
+
+    public static void main(String[] args)
+    {
+        System.out.print(lineLength("-n10\nabcd de fghij\nab\nababababababababababa\n-n5\nab cd eg gh\na"));
+    }
+
+    public static String lineLength(String inputString)
+    {
+        int max = 80;
+        
+        String output = "";
+        for(String line: inputString.split("\\r?\\n"))
+        {
+                String out = "";
+                if(line.length() > 2 && line.trim().substring(0,2).equals("-n"))
+                {
+                        max = Integer.parseInt(line.trim().substring(2));
+                }
+                else{
+                    String[] words = line.split(" ");
+                    int index = 0;
+                    int currentSize = 0;
+
+                    while(index < words.length)
+                    {
+                        if(words[index].equals(""))
+                        {
+                            index++;
+                        }
+                        else if(words[index].length() + currentSize <= max && currentSize == 0)
+                        {
+                                out += words[index];
+                                currentSize += words[index].length();
+                                index++;
+
+                        }
+                        else if(words[index].length() + currentSize + 1 <= max)
+                        {
+                                out += " " + words[index];
+                                currentSize += words[index].length() + 1;
+                                index++;
+                        }
+                        else{
+                            if(words[index].length() > max && currentSize == 0)
+                            {
+                                out += words[index].substring(0, max);
+                                words[index] = words[index].substring(max);
+                            }
+                            currentSize = 0;
+
+                            int startOfCurrentLine = 0 > out.lastIndexOf("\n") ? 0 : out.lastIndexOf("\n") + 1;
+                            while(out.substring(startOfCurrentLine).length() < max) out += " ";
+
+                            out += "\n";                    
+                        }
+                    }
+                    if(out.charAt(out.length() - 1) != '\n'){
+                        int startOfCurrentLine = 0 > out.lastIndexOf("\n") ? 0 : out.lastIndexOf("\n") + 1;
+                        while(out.substring(startOfCurrentLine).length() < max) out += " ";
+                        out += "\n";
+                    }
+                }
+            output += out;
+        }
+
+        while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
+
+        return output;
+    }
 
     public static String formatColumns(String inputString){
         ArrayList<ColumnBlock> blocks = new ArrayList<ColumnBlock>();
@@ -100,3 +169,5 @@ class ColumnBlock{
         }
     }
 }
+
+
