@@ -6,7 +6,7 @@ import java.util.List;
 
 class Formatter{
     protected int line_length = 80;
-    protected int align = 0;  // left = 0, right, centered, equal
+    protected int align;  // left = 0, right, centered, equal
     protected boolean wrap = false;
     protected boolean double_spaced = false;
     protected boolean two_column = false;
