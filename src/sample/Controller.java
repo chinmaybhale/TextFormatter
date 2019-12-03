@@ -10,9 +10,7 @@ package sample;
 import com.sun.glass.ui.Pixels;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -27,6 +25,8 @@ public class Controller {
     public Button open = new Button();
     public Button save = new Button();
     public Button convert = new Button();
+
+    public TabPane tabPane = new TabPane();
 
     public TextArea input = new TextArea();
     public TextArea errors = new TextArea();
@@ -111,6 +111,9 @@ public class Controller {
 
         output.setFont(Font.font("monospaced"));
         output.setText(string);
+
+        SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+        selectionModel.select(1);
     }
 
     /**

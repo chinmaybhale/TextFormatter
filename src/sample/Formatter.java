@@ -69,15 +69,16 @@ class Formatter{
                     underline += "-";
                 }
                 line = centerJust(line, line.length()) + "\n" + centerJust(underline, line.length());
-                //line = centerJust(line, line_length);
                 titleToken = false;
                 output = output + line + "\n";
+                System.out.println(output);
             }
             else{
                 output = output + line + "\n";
             }
         }
-        output = output.substring(0,output.length()-2);
+        //output = output.substring(0,output.length()-1);
+		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
         return output;
     }
 
@@ -304,44 +305,6 @@ class Formatter{
 		}
 
 		return output.trim();
-//		char[] temp = input.toCharArray();
-//		int count = 0, spaces = 0, remainder = 0;
-//		int extra = lineLength - input.length();
-//
-//		while(count < input.length()) {
-//			if(temp[count] == ' ') {		//counts the number of spaces.
-//				spaces++;
-////				System.out.printf("Spaces: %d Line: %d\n", spaces, count);
-//			}
-//			count++;
-//		}
-//
-//		String[] lines = input.split(" ");		//makes an array of all words in input.
-//		remainder = extra%spaces;
-//		spaces = extra/spaces;		//how many spaces to add between each word.
-//		count = 0;
-////		System.out.println(remainder);
-////		System.out.println(spaces);
-//
-//		for(int i = 0; i < lines.length - 1; i++) {
-//			lines[i].trim();
-//			for(int ii = 0; ii <= spaces; ii++) {		//adds spaces to each index of a word but not the last one.
-//				lines[i] = lines[i] + " ";
-//			}
-//		}
-//
-//		for(int ii = 0; ii <= remainder; ii++) {
-//			lines[ii] = lines[ii] + " ";
-//		}
-//
-//		for(int i = 0; i < lines.length - 1; i++) {
-//			output = output + lines[i];
-//		}
-//		output = output + lines[lines.length-1];	//adds last word into output.
-//
-//
-//		return output;
-		
 	}
 
 
@@ -463,7 +426,7 @@ class Formatter{
 					output = output + line + "\n";
 				}
 			} else if(line.startsWith("-")) {
-				output = output + line;
+				output = output + line + "\n";
 			}
 		}
 		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
