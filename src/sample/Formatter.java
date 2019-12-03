@@ -1,18 +1,76 @@
 
 package sample;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 class Formatter{
-    protected int line_length;
+    protected int line_length = 80;
     protected int align;  // left = 0, right, centered, equal
-    protected boolean wrap;
-    protected boolean double_spaced;
-    protected boolean title;  // switched off after first text line
-    protected int p; // = 0 after insert
-    protected int b; // = 0 after insert
-    protected boolean two_column;
+    protected boolean wrap = false;
+    protected boolean double_spaced = false;
+    protected boolean two_column = false;
 
-    protected Errors E = new Errors();
+    public String formatWrap(String inputString){
+        String output = "";
+        String[] lines = inputString.split("\\r?\\n");
+        for(String line : lines){
+            if(line.startsWith("-w+")){
+                wrap = true;
+            }
+            else if(line.startsWith("-w-")){
+                wrap = false;
+            }
+            else{
+                if(!line.startsWith("-")){
+                    if(wrap){
+                        output = output+ " " + line;
+                    }
+                    else{
+                        output = output + "\n" + line;
+                    }
+                }
+                else{
+                    if(wrap){
+                        output = "\n" + line + "\n";
+                    }
+                    else{
+                        output = "\n" + line;
+                    }
+                }
+
+            }
+        }
+        return output;
+    }
+
+    public String formatTitle(String inputString){
+        String output = "";
+        boolean titleToken = false;
+        int titleLength = 0;
+        String underline = "";
+        String[] lines = inputString.split("\\r?\\n");
+        for(String line : lines){
+            if(line.startsWith("-t")){
+                titleToken = true;
+            }
+            else if(!line.startsWith("-") && titleToken == true){
+                titleLength = line.length();
+                for(int i = 0; i < titleLength; i++){
+                    underline += "-";
+                }
+                line = line + "\n" + underline;
+                line = centerJust(line);
+                titleToken = false;
+                output = output + line + "\n";
+            }
+            else{
+                output = output + line + "\n";
+            }
+        }
+        output = output.substring(0,output.length()-2);
+        return output;
+    }
 
     public static String formatColumns(String inputString){
         ArrayList<ColumnBlock> blocks = new ArrayList<ColumnBlock>();

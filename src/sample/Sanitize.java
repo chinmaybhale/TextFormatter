@@ -64,20 +64,18 @@ public class Sanitize extends Formatter {
                         //check if -n, -p, or -b w/ valid command
                         switch(lines[i].substring(0,2)){
                             case "-n":
-                                if(two_column){
-                                    try{
-                                        line_length = Integer.parseInt(lines[i].substring(2));
-                                        if(two_column){
-                                            //cannot change line_length bc two col is on
-                                            Errors.InvalidCommandError("Cannot change line length because two column is switched on.",i+1);
-                                            errorLines.add(i);
-                                        }
-                                    }
-                                    catch (NumberFormatException e){
-                                        //throw invalid line length error
-                                        Errors.InvalidCommandError("Invalid number following -n.", i+1);
+                                try{
+                                    line_length = Integer.parseInt(lines[i].substring(2));
+                                    if(two_column){
+                                        //cannot change line_length bc two col is on
+                                        Errors.InvalidCommandError("Cannot change line length because two column is switched on.",i+1);
                                         errorLines.add(i);
                                     }
+                                }
+                                catch (NumberFormatException e){
+                                    //throw invalid line length error
+                                    Errors.InvalidCommandError("Invalid number following -n.", i+1);
+                                    errorLines.add(i);
                                 }
                             break;
                             case "-p": // insert spaces
