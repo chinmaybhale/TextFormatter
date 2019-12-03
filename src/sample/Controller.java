@@ -11,6 +11,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TitledPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -29,14 +30,9 @@ public class Controller {
     public TextArea errors = new TextArea();
     public TextArea output = new TextArea();
 
-    private FileChooser chooser = new FileChooser();
+    public TitledPane errorPane = new TitledPane();
 
-    /**
-     * Constructor, passing reference of error text area to the Errors class
-     */
-    public Controller() {
-        Errors.setErrorTextArea(errors);
-    }
+    private FileChooser chooser = new FileChooser();
 
     /**
      * This method is called upon when the open button is clicked
@@ -74,7 +70,6 @@ public class Controller {
      */
     @FXML
     public void saveFile(Event e) {
-        // TODO: save file as output.txt from output tab
         String outputData = output.getText();
 
         File file = chooser.showSaveDialog(save.getScene().getWindow());
@@ -82,7 +77,6 @@ public class Controller {
         if(file != null) {
             createFile(outputData, file);
         }
-
     }
 
     /**
@@ -95,6 +89,9 @@ public class Controller {
     @FXML
     public void convertFile(Event e) {
         // TODO: take content from input pane and send to conversion
+        errors.setText("");
+        Errors.setErrorArea(errorPane, errors);
+
         Sanitize sanitizer = new Sanitize();
         String sanitizedOutput = sanitizer.sanitize(input.getText());
         output.setText(sanitizedOutput);

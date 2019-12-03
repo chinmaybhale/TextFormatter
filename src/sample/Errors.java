@@ -10,19 +10,25 @@
 package sample;
 
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TitledPane;
 
 public class Errors {
 
+    private static TitledPane errorPane;
     private static TextArea errors;
 
     /**
      * This method is only called upon by the controller class.
-     * This method is used to initialize the errors TextArea by
-     * passing the control from the Controller class.
+     * This method is used to initialize the errors TextArea and the errorPane TitledPane
+     * by passing the control from the Controller class.
      *
+     * @param error_pane is the reference to the errorPane TitledPane in the GUI
      * @param error is the reference to the errors TextArea in the GUI
      */
-    public static void setErrorTextArea(TextArea error) {errors = error;}
+    public static void setErrorArea(TitledPane error_pane, TextArea error) {
+        errorPane = error_pane;
+        errors = error;
+    }
 
     /**
      * This class is called when the parsed command does not exist or
@@ -33,8 +39,10 @@ public class Errors {
      * @param line This is the line number on which the error is encountered
      */
     public static void UnrecognizedCommandError(String message, int line) {
-        String err = "Line" + line + ": Unrecognized Command, " + message;
-        errors.setText(err);
+        String err = "Line " + line + ": Unrecognized Command, " + message;
+        errors.setText(buildErr(err));
+
+        errorPane.setExpanded(true);
     }
 
     /**
@@ -46,8 +54,10 @@ public class Errors {
      * @param line This is the line number on which the error is encountered
      */
     public static void InvalidCommandError(String message, int line) {
-        String err = "Line" + line + ": Invalid Command, " + message;
-        errors.setText(err);
+        String err = "Line " + line + ": Invalid Command, " + message;
+        errors.setText(buildErr(err));
+
+        errorPane.setExpanded(true);
     }
 
     /**
@@ -58,8 +68,15 @@ public class Errors {
      * @param line This is the line number on which the error is encountered
      */
     public static void TitleLengthOverflowError(String message, int line) {
-        String err = "Line" + line + ": Title Length Overflow, " + message;
-        errors.setText(err);
+        String err = "Line " + line + ": Title Length Overflow, " + message;
+        errors.setText(buildErr(err));
+
+        errorPane.setExpanded(true);
+    }
+
+    private static String buildErr(String err) {
+        String errList = errors.getText();
+        return errList + "\n" + err;
     }
 
 }
