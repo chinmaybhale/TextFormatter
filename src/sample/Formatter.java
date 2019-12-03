@@ -86,6 +86,14 @@ class Formatter{
                 {
                         max = Integer.parseInt(line.trim().substring(2));
                 }
+				else if(line.length() > 3 && line.trim().substring(0,3).equals("-a2"))
+                {
+                        max = 35;
+                }
+				else if(line.length() > 3 && line.trim().substring(0,3).equals("-a1"))
+                {
+                        max = 80;
+                }
                 else{
                     String[] words = line.split(" ");
                     int index = 0;
