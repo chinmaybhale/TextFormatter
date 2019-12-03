@@ -314,16 +314,6 @@ class Formatter{
 		return output;
 	}
 	
-	public String indent(String input, int spaces) {
-		input = input.trim();
-		String output = "";
-		for(int i = 0; i < spaces; i++) {
-			output = output + " ";
-		}
-		
-		return (output + input);
-	}
-	
 	public String blankLines(int numLines) {
 		String output = "";
 		for(int i = 0; i < numLines; i++) {
@@ -369,12 +359,43 @@ class Formatter{
 	}
 	
 	public String indentation(String input) {
+    	boolean p = false;
 		String output = "";
 		String[] lines = input.split("\\r?\\n");
-		Formatter just = new Formatter();
+		int line1 = 0;
+		int number = 0;
+		String[] words;
+		String firstLine = "";
+		String secondLine = "";
+
 		for(String line: lines) {
 			if(line.startsWith("-p")) {
-				
+				number = Integer.parseInt(line.trim().substring(2));
+				p = true;
+			}
+			else if (!line.startsWith("-")) {
+				if(p){
+					words = line.split(" ");
+					line1 = number;
+					//adds indentations
+					for(int j = 0; j < number; j++){
+						firstLine += " ";
+					}
+					//make sure not longer than line length
+					for(int i = 0; i < words.length; i++){
+						if((line1 + words[i].length()) <= line.length()){
+							firstLine += words[i];
+						}
+						else{
+							secondLine += words[i];
+						}
+					}
+					line = firstLine + "\n" + secondLine;
+					output = output + line + "\n";
+					p = false;
+				} else if(!p){
+					output = output + line + "\n";
+				}
 			}
 		}
 		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
