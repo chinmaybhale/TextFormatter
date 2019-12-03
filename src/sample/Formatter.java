@@ -384,19 +384,25 @@ class Formatter{
 					//make sure not longer than line length
 					for(int i = 0; i < words.length; i++){
 						if((line1 + words[i].length()) <= line.length()){
-							firstLine += words[i];
+							firstLine = firstLine + " " + words[i];
 						}
 						else{
-							secondLine += words[i];
+							secondLine = " " + words[i];
 						}
 					}
-					line = firstLine + "\n" + secondLine;
+					line = firstLine;
+					if(secondLine.trim().length() == 0){
+					    line = "\n" + secondLine;
+                    }
 					output = output + line + "\n";
 					p = false;
 				} else if(!p){
 					output = output + line + "\n";
 				}
 			}
+			else {
+			    output = output + line + "\n";
+            }
 		}
 		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
 		return output;
@@ -434,7 +440,7 @@ class Formatter{
 					out += "\n";
 				}
 			} else if(line.startsWith("-")) {
-				output = output + line;
+				out = out + line;
 			}
 			else{
 				out += line + "\n";
