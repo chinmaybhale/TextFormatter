@@ -13,10 +13,6 @@ class Formatter{
     protected boolean double_spaced = false;
     protected boolean two_column = false;
 
-	public static void main(String[] args){
-		System.out.println(blankSpaces("oufhoeihfoi\nwpihefoiwhe\n-b3\nwihfeoiwhe\nwiehfowiehf"));
-	}
-
     public String formatWrap(String inputString){
         String output = "";
         String[] lines = inputString.split("\\r?\\n");
