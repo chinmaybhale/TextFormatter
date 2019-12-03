@@ -350,13 +350,13 @@ class Formatter{
 		String[] lines = input.split("\\r?\\n");
 		for(String line: lines) {
 			if(line.startsWith("-d")) {
-				double_spaced = 1;
+				double_spaced = true;
 			} else if(line.startsWith("-s")) {
-				double_spaced = 0;
+				double_spaced = false;
 			} else if(!line.startsWith("-")) {
-				if(double_spaced == 1) {		//double spaced on.
+				if(double_spaced == true) {		//double spaced on.
 					output = output + doubleSpace(line) + "\n";
-				} else if (double_spaced == 0) {	//single spaced on.
+				} else if (double_spaced == false) {	//single spaced on.
 					output = output + line + "\n";
 				}
 			}
