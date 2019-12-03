@@ -47,7 +47,7 @@ public class Sanitize extends Formatter {
                                 titleFound = true;
                                 if (lines[j].trim().length() > line_length) {
                                     //throw title length overflow error
-                                    Errors.TitleLengthOverflowError("Title is longer than line length.", i);
+                                    Errors.TitleLengthOverflowError("Title is longer than line length.", i+1);
                                     errorLines.add(i);
                                 }
                             }
@@ -69,13 +69,13 @@ public class Sanitize extends Formatter {
                                         line_length = Integer.parseInt(lines[i].substring(2));
                                         if(two_column){
                                             //cannot change line_length bc two col is on
-                                            Errors.InvalidCommandError("Cannot change line length because two column is switched on.",i);
+                                            Errors.InvalidCommandError("Cannot change line length because two column is switched on.",i+1);
                                             errorLines.add(i);
                                         }
                                     }
                                     catch (NumberFormatException e){
                                         //throw invalid line length error
-                                        Errors.InvalidCommandError("Invalid number following -n.", i);
+                                        Errors.InvalidCommandError("Invalid number following -n.", i+1);
                                         errorLines.add(i);
                                     }
                                 }
@@ -86,13 +86,13 @@ public class Sanitize extends Formatter {
                                         Integer.parseInt(lines[i].substring(2));
                                     } catch (NumberFormatException e) {
                                         //throw invalid num option
-                                        Errors.InvalidCommandError("Invalid number following -p.", i);
+                                        Errors.InvalidCommandError("Invalid number following -p.", i+1);
                                         errorLines.add(i);
                                     }
                                 }
                                 else{
                                     //throw can't insert space bc of alignment error
-                                    Errors.InvalidCommandError("Cannot insert space with -r, -c, or -e on.", i);
+                                    Errors.InvalidCommandError("Cannot insert space with -r, -c, or -e on.", i+1);
                                     errorLines.add(i);
                                 }
                                 break;
@@ -102,12 +102,12 @@ public class Sanitize extends Formatter {
                                 }
                                 catch (NumberFormatException e){
                                     //throw invalid num option
-                                    Errors.InvalidCommandError("Invalid number following -b.", i);
+                                    Errors.InvalidCommandError("Invalid number following -b.", i+1);
                                     errorLines.add(i);
                                 }
                                 break;
                             default:
-                                Errors.UnrecognizedCommandError("Unrecognized Command.", i);
+                                Errors.UnrecognizedCommandError("Unrecognized Command.", i+1);
                                 errorLines.add(i);
                         }
                 }
