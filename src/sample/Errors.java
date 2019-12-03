@@ -22,7 +22,9 @@ public class Errors {
      *
      * @param error is the reference to the errors TextArea in the GUI
      */
-    public static void setErrorTextArea(TextArea error) {errors = error;}
+    public static void setErrorTextArea(TextArea error) {
+        errors = error;
+    }
 
     /**
      * This class is called when the parsed command does not exist or
