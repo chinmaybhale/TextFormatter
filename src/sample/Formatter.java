@@ -169,77 +169,8 @@ class Formatter{
 
         return out;
     }
-}
 
-class ColumnBlock{
-    private int columns;
-    String text;
-
-    public ColumnBlock(int columns){
-        this.columns = columns;
-        text = "";
-    }
-
-    public boolean isSingleColumn(){
-        return columns == 1;
-    }
-
-    public void addLine(String text){
-        this.text += text + "\n";
-    }
-//<<<<<<< HEAD
-//
-//    // This assumes that lines are at most 35 characters long if columns = 2w
-//=======
-//
-//        // This assumes that lines are at most 35 characters long if columns = 2
-//        >>>>>>> ccdea80eb77ab76f6fb79ba72290bc558c0f7aec
-    public String format(){
-        if(columns == 1){
-            return text;
-        }
-        else{
-            String[] lines = text.split("\\r?\\n");
-            String out = "";
-
-            int diff = lines.length / 2 + 1;
-
-            for(int i = 0; i < diff; i++){
-                while(lines[i].length() < 35){
-                    lines[i] = lines[i] + " ";
-                }
-                if(i + diff < lines.length){
-                    while(lines[i + diff].length() < 35){
-                        lines[i + diff] = lines[i + diff] + " ";
-                    }
-                    out = out + lines[i] + "          " + lines[i + diff] + "\n";
-                }
-                else{
-                    out = out + lines[i] + "                                             \n";
-                }
-            }
-
-            return out;
-        }
-    }
-    
-    	public String leftJust(String input, int lineLength) {		//this is the only method that assumes that input is longer than line length.
-		input = input.trim();
-		String output = "";
-		char[] temp = input.toCharArray();
-		int i = 0;
-			while( i < input.length()) {
-  				System.out.print(temp[i]);
-  				i++;
-  				if(i == 79) {
-  					System.out.print("\n");
-  				}
-  			}
-		
-		return output;
-	}
-
-	public String rightJust(String input, int lineLength) {
+    public String rightJust(String input, int lineLength) {
 		input = input.trim();
 		char[] temp = input.toCharArray();
 		String output = "";
@@ -455,6 +386,75 @@ class ColumnBlock{
 			}
 		}
 		output = output.substring(0, output.length()-2);
+		return output;
+	}
+}
+
+class ColumnBlock{
+    private int columns;
+    String text;
+
+    public ColumnBlock(int columns){
+        this.columns = columns;
+        text = "";
+    }
+
+    public boolean isSingleColumn(){
+        return columns == 1;
+    }
+
+    public void addLine(String text){
+        this.text += text + "\n";
+    }
+//<<<<<<< HEAD
+//
+//    // This assumes that lines are at most 35 characters long if columns = 2w
+//=======
+//
+//        // This assumes that lines are at most 35 characters long if columns = 2
+//        >>>>>>> ccdea80eb77ab76f6fb79ba72290bc558c0f7aec
+    public String format(){
+        if(columns == 1){
+            return text;
+        }
+        else{
+            String[] lines = text.split("\\r?\\n");
+            String out = "";
+
+            int diff = lines.length / 2 + 1;
+
+            for(int i = 0; i < diff; i++){
+                while(lines[i].length() < 35){
+                    lines[i] = lines[i] + " ";
+                }
+                if(i + diff < lines.length){
+                    while(lines[i + diff].length() < 35){
+                        lines[i + diff] = lines[i + diff] + " ";
+                    }
+                    out = out + lines[i] + "          " + lines[i + diff] + "\n";
+                }
+                else{
+                    out = out + lines[i] + "                                             \n";
+                }
+            }
+
+            return out;
+        }
+    }
+    
+    	public String leftJust(String input, int lineLength) {		//this is the only method that assumes that input is longer than line length.
+		input = input.trim();
+		String output = "";
+		char[] temp = input.toCharArray();
+		int i = 0;
+			while( i < input.length()) {
+  				System.out.print(temp[i]);
+  				i++;
+  				if(i == 79) {
+  					System.out.print("\n");
+  				}
+  			}
+		
 		return output;
 	}
 }
