@@ -359,7 +359,7 @@ class Formatter{
 				} else if(align == 3) {		//equal spacing
 					output = output + equalSpacing(input, line.length()) + "\n";
 				}				
-			} else if(line.startsWith("-") {
+			} else if(line.startsWith("-")) {
 				output = output + line;
 			}
 			
@@ -395,7 +395,7 @@ class Formatter{
 				} else if (double_spaced == false) {	//single spaced on.
 					output = output + line + "\n";
 				}
-			} else if(line.startsWith("-") {
+			} else if(line.startsWith("-")) {
 				output = output + line;
 			}
 		}
@@ -419,7 +419,7 @@ class Formatter{
 				} else if(b == 0) {
 					output = output + line + "\n";
 				}
-			} else if(line.startsWith("-") {
+			} else if(line.startsWith("-")) {
 				output = output + line;
 			}
 		}
