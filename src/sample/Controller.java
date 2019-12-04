@@ -103,8 +103,8 @@ public class Controller {
         string = formatter.formatWrap(string);
         string = formatter.lineLength(string);
         string = formatter.justification(string);
-        //string = formatter.indent(string);
-        //string = formatter.doubleSpaces(string);
+        string = formatter.indentation(string);
+        string = formatter.doubleSpaces(string);
         string = formatter.formatTitle(string);
         string = Formatter.blankSpaces(string);
         string = Formatter.formatColumns(string);
