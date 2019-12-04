@@ -35,7 +35,7 @@ class Formatter{
                 }
                 else{
                     if(wrap){
-                        output = "\n" + line + "\n";
+                        output = output + "\n" + line + "\n";
                     }
                     else{
 						if(!output.endsWith("\n")){
