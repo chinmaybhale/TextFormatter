@@ -92,20 +92,18 @@ class Formatter{
 				if(line.length() > 2 && line.trim().substring(0,3).equals("-a2"))
                 {
                         max = 35;
-                        out = "-n35";
                 }
 				if(line.length() > 2 && line.trim().substring(0,3).equals("-a1"))
                 {
                         max = 80;
-                        out = "-n80";
                 }
 
                 if(line.length() > 2 && line.trim().substring(0,2).equals("-n"))
                 {
                         max = Integer.parseInt(line.trim().substring(2));
-                        out = line;
                 }
                 else{
+
                     String[] words = line.split(" ");
                     int index = 0;
                     int currentSize = 0;
@@ -335,19 +333,19 @@ class Formatter{
 			} else if(line.startsWith("-e")) {		//equal spacing
 				align = 3;
 			} else if(!line.startsWith("-")) {
-				
+
 				if(align == 0) {		//left justified
 					output = output + leftJust(line, line.length()) + "\n";
-					
+
 				} else if(align == 1) {		//right justified
 					output = output + rightJust(line, line.length()) + "\n";
-					
+
 				} else if(align == 2) {		//center align
 					output = output + centerJust(line, line.length()) + "\n";
-					
+
 				} else if(align == 3) {		//equal spacing
 					output = output + equalSpacing(line, line.length()) + "\n";
-				}				
+				}
 			} else if(line.startsWith("-")) {
 				output = output + line + "\n";
 			}
@@ -357,169 +355,222 @@ class Formatter{
 		return output;
 	}
 
-// 	public String indentation(String input) {
-//     	boolean p = false;
-//     	int length = 80;
-// 		String output = "";
-// 		String[] lines = input.split("\\r?\\n");
-// 		int line1 = 0;
-// 		int number = 0;
-// 		String[] words;
-// 		String firstLine = "";
-// 		String secondLine = "";
-
-// 		for(String line: lines) {
-// 			length = line.length();
-// 		    //if see -p command, store indentation number;
-// 			if(line.startsWith("-n")){
-//                 length = Integer.parseInt(line.trim().substring(2));
-//             }
-//             else if(line.startsWith("-p")) {
-// 				number = Integer.parseInt(line.trim().substring(2));
-// 				p = true;
-// 			}
-// 			else if (!line.startsWith("-")) {
-// 				if(p){
-// 				    p = false;
-// 					String indent = "";
-// 					for(int j = 0; j < number && j < length; j++)
-// 					{
-// 						indent += " ";
-// 					}
-
-// 					output += indent;
-// 					words = line.trim().split(" ");
-
-// 					int currentSize = indent.length();
-// 					int max = length;
-
-// 					for(int index = 0; index < words.length; index = index) {
-// 						if (words[index].length() + currentSize <= max && (currentSize == 0 || index == 0)) {
-// 							output += words[index];
-// 							currentSize += words[index].length();
-// 							index++;
-
-// 						} else if (words[index].length() + currentSize + 1 <= max) {
-// 							output += " " + words[index];
-// 							currentSize += words[index].length() + 1;
-// 							index++;
-// 						} else {
-// 							if (words[index].length() > max && currentSize == 0) {
-// 								output += words[index].substring(0, max);
-// 								words[index] = words[index].substring(max);
-// 							}
-// 							currentSize = output.contains("\n") ? output.length() - output.lastIndexOf('\n') : 0;
-
-// 							int startOfCurrentLine = 0 > output.lastIndexOf("\n") ? 0 : output.lastIndexOf("\n") + 1;
-// 							while (output.substring(startOfCurrentLine).length() < max) output += " ";
-
-// 							output += "\n";
-// 						}
-// 					}
-
-// //					words = line.trim().split(" ");
-// //					line1 = number;
-// //					//adds indentations
-// //					for(int j = 1; j < number; j++){
-// //						firstLine += " ";
-// //					}
-// //					//make sure not longer than line length
-// //					for(int i = 0; i < words.length; i++){
-// //						if((firstLine.length() + words[i].length()) <= length) {
-// //							firstLine = firstLine + " " + words[i];
-// //						}
-// //						else{
-// //								secondLine = " " + words[i];
-// //						}
-// //					}
-// //					line = firstLine;
-// //					while(line.length() < length) line += " ";
-// //					firstLine = "";
-// //					if(secondLine.trim().length() != 0){
-// //							line = line + "\n" + secondLine.trim();
-// //                    }
-// //					secondLine = "";
-// //					output = output + line + " ";
-// //					p = false;
-// //				} else {
-// //					words = line.trim().split(" ");
-// //					//make sure not longer than line length
-// //					for(int i = 0; i < words.length; i++){
-// //						int len = 0;
-// //						if(len + words[i].length())
-// //						if((firstLine.length() + words[i].length()) <= max) {
-// //							firstLine = firstLine + words[i] + " ";
-// //						}
-// //						else{
-// //							if(!words[i].equals("\n"))
-// //								secondLine = words[i] + " ";
-// //						}
-// //					}
-// 				}
-//                 else {
-//                     output = output + line + "\n";
-//                 }
-// 			}
-// 		}
-//         if(output.length() > 0 && output.charAt(output.length() - 1) != '\n') output += "\n";
-
-// 		lines = output.split("\\r?\\n");
-// 		output = "";
-// 		for(int i = 0; i < lines.length; i++)
-// 		{
-// 			while(lines[i].length() < length) lines[i] += " ";
-// 			output += lines[i] + "\n";
-// 		}
-// 		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
-// 		return output;
-// 	}
-	
 	public String indentation(String input) {
-		boolean p = false;
-		int length = 0;
-		String output = "";
-		String[] lines = input.split("\\r?\\n");
-		String[] newlines = new String[lines.length + 2];
-		int number = 0, lineNum = 0;
-		String[] words;
-		
-		for(String line: lines) {
-			length = line.length();
-			
-			if(line.startsWith("-p")) {
-				number = Integer.parseInt(line.trim().substring(2));
-				p = true;
-			} else if (!line.startsWith("-")) {
-				if(p = true){
-					words = line.trim().split(" ");
-					//adds indentations
-					for(int j = 0; j < number; j++){
-						newlines[lineNum] += " "; 
-					} 
-					//make sure not longer than line length
-					for(int i = 0; i < words.length; i++){
-						if((newlines[lineNum].length() + words[i].length()) <= max) {
-							newlines[lineNum] = newlines[lineNum] + " " + words[i];
-						}
-						else{
-							if(!words[i].equals("\n"))
-								lineNum++;
-								newlines[lineNum] = " " + words[i];
-						}
-					}
-					for(int ii = 0; ii < newlines.length; ii++) {
-						output = output + newlines[ii] + "\n";
-					}
-					p = false;
+        String[] lines = input.split("\\r?\\n");
+        String output = "";
+        int indentLen = 0;
 
-				} else {		//if its a command put it back in with newline.
-					output = output + line + "\n";
-				}
-			}
-			
-		}
-		
-		return output;
+        for(String line: lines) {
+            if(line.startsWith("-p")){
+                indentLen = Integer.parseInt(line.trim().substring(2));
+            }
+            else {
+                String out = "";
+                while(indentLen > 0){
+                    indentLen--;
+                    out = " " + out;
+                }
+                String[] words = line.split(" ");
+                int index = 0;
+                int currentSize = out.length();
+
+                while (index < words.length) {
+                    if (words[index].equals("")) {
+                        index++;
+                    } else if (words[index].length() + currentSize <= max && currentSize == 0) {
+                        out += words[index];
+                        currentSize += words[index].length();
+                        index++;
+
+                    } else if (words[index].length() + currentSize + 1 <= max) {
+                        out += " " + words[index];
+                        currentSize += words[index].length() + 1;
+                        index++;
+                    } else {
+                        if (words[index].length() > max && currentSize == 0) {
+                            out += words[index].substring(0, max);
+                            words[index] = words[index].substring(max);
+                        }
+                        currentSize = 0;
+
+                        int startOfCurrentLine = 0 > out.lastIndexOf("\n") ? 0 : out.lastIndexOf("\n") + 1;
+                        while (out.substring(startOfCurrentLine).length() < max) out += " ";
+
+                        out += "\n";
+                    }
+                }
+                if (out.length() > 0 && out.charAt(out.length() - 1) != '\n') {
+                    int startOfCurrentLine = 0 > out.lastIndexOf("\n") ? 0 : out.lastIndexOf("\n") + 1;
+                    while (out.substring(startOfCurrentLine).length() < max) out += " ";
+                    out += "\n";
+                }
+                output += out;
+            }
+        }
+        return output;
+//        String[] lines = input.split("\\r?\\n");
+//        int length = 80, indentLen = 0;
+//        String out = "";
+//
+//        for(String line: lines){
+//            length = line.length();
+//            if(line.startsWith("-p")){
+//                indentLen = Integer.parseInt(line.trim().substring(2));
+//            }
+//            else if(line.trim().length() > 0){
+//                if(indentLen > 0){
+//                    for(int i = 0; i < indentLen && i < length; i++) {
+//                        out += " ";
+//                    }
+//
+//                    while(line.trim().length() > 0){
+//                        int i = indentLen;
+//                        if(line.split(" ")[0].length() > length){
+//                            String temp = line.substring(0, line.length());
+//                            out +=  temp + "\n";
+//                            i = 0;
+//                            line = line.substring(temp.length());
+//                        }
+//                        else if(line.indexOf(" ") < 0){
+//                            out += line + "\n";
+//                            line = "";
+//                            i = 0;
+//                        }else{
+//                            out += line.substring(0, line.indexOf(" ")) + " ";
+//                            i+= line.substring(0, line.indexOf(" ")).length();
+//                            line = line.substring(line.indexOf(" ") + 1);
+//                            if(line.indexOf(" ") > 0 && line.indexOf(" ") + i > length){
+//                                while(out.length() > 0 && out.charAt(out.length() - 1) == ' ') out = out.substring(0, out.length() - 1);
+//                                out += "\n";
+//                                i = 0;
+//                            }
+//                        }
+//                    }
+//                    indentLen = 0;
+//                }
+//                else{
+//                    out += line + "\n";
+//                }
+//            }
+//        }
+//        return out;
+//    	boolean p = false;
+//    	int length = 80;
+//		String output = "";
+//		String[] lines = input.split("\\r?\\n");
+//		int line1 = 0;
+//		int number = 0;
+//		String[] words;
+//		String firstLine = "";
+//		String secondLine = "";
+//
+//		for(String line: lines) {
+//			length = line.length();
+//		    //if see -p command, store indentation number;
+//			if(line.startsWith("-n")){
+//                length = Integer.parseInt(line.trim().substring(2));
+//            }
+//            else if(line.startsWith("-p")) {
+//				number = Integer.parseInt(line.trim().substring(2));
+//				p = true;
+//			}
+//			else if (!line.startsWith("-")) {
+//				if(p){
+//				    p = false;
+//					String indent = "";
+//					for(int j = 0; j < number && j < length; j++)
+//					{
+//						indent += " ";
+//					}
+//
+//					output += indent;
+//					words = line.trim().split(" ");
+//
+//					int currentSize = indent.length();
+//					int max = length;
+//
+//					for(int index = 0; index < words.length; index = index) {
+//						if (words[index].length() + currentSize <= max && (currentSize == 0 || index == 0)) {
+//							output += words[index];
+//							currentSize += words[index].length();
+//							index++;
+//
+//						} else if (words[index].length() + currentSize + 1 <= max) {
+//							output += " " + words[index];
+//							currentSize += words[index].length() + 1;
+//							index++;
+//						} else {
+//							if (words[index].length() > max && currentSize == 0) {
+//								output += words[index].substring(0, max);
+//								words[index] = words[index].substring(max);
+//							}
+//							currentSize = 0;
+//
+//							int startOfCurrentLine = 0 > output.lastIndexOf("\n") ? 0 : output.lastIndexOf("\n") + 1;
+//							while (output.substring(startOfCurrentLine).length() < max) output += " ";
+//
+//							output += "\n";
+//						}
+//					}
+//
+////					words = line.trim().split(" ");
+////					line1 = number;
+////					//adds indentations
+////					for(int j = 1; j < number; j++){
+////						firstLine += " ";
+////					}
+////					//make sure not longer than line length
+////					for(int i = 0; i < words.length; i++){
+////						if((firstLine.length() + words[i].length()) <= length) {
+////							firstLine = firstLine + " " + words[i];
+////						}
+////						else{
+////								secondLine = " " + words[i];
+////						}
+////					}
+////					line = firstLine;
+////					while(line.length() < length) line += " ";
+////					firstLine = "";
+////					if(secondLine.trim().length() != 0){
+////							line = line + "\n" + secondLine.trim();
+////                    }
+////					secondLine = "";
+////					output = output + line + " ";
+////					p = false;
+////				} else {
+////					words = line.trim().split(" ");
+////					//make sure not longer than line length
+////					for(int i = 0; i < words.length; i++){
+////						int len = 0;
+////						if(len + words[i].length())
+////						if((firstLine.length() + words[i].length()) <= max) {
+////							firstLine = firstLine + words[i] + " ";
+////						}
+////						else{
+////							if(!words[i].equals("\n"))
+////								secondLine = words[i] + " ";
+////						}
+////					}
+//				}
+//                else {
+//                    output = output + line + "\n";
+//                }
+//			}
+//            else {
+//                output = output + line + "\n";
+//            }
+//		}
+//        if(output.length() > 0 && output.charAt(output.length() - 1) != '\n') output += "\n";
+//
+//		lines = output.split("\\r?\\n");
+//		output = "";
+//		for(int i = 0; i < lines.length; i++)
+//		{
+//			while(lines[i].length() < length) lines[i] += " ";
+//			output += lines[i] + "\n";
+//		}
+//		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
+//		return output;
 	}
 	
 	public String doubleSpaces(String input){
