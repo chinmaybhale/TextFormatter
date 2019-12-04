@@ -362,6 +362,7 @@ class Formatter{
 	
 	public String indentation(String input) {
     	boolean p = false;
+    	int length = 0;
 		String output = "";
 		String[] lines = input.split("\\r?\\n");
 		int line1 = 0;
@@ -371,6 +372,7 @@ class Formatter{
 		String secondLine = "";
 
 		for(String line: lines) {
+			length = line.length();
 		    //if see -p command, store indentation number;
 			if(line.startsWith("-p")) {
 				number = Integer.parseInt(line.trim().substring(2));
@@ -395,9 +397,10 @@ class Formatter{
 						}
 					}
 					line = firstLine;
+					while(line.length() < length) line += " ";
 					firstLine = "";
 					if(secondLine.trim().length() != 0){
-					    line = line + "\n" + secondLine.trim();
+							line = line + "\n" + secondLine.trim();
                     }
 					secondLine = "";
 					output = output + line + " ";
@@ -409,6 +412,14 @@ class Formatter{
 			else {
 			    output = output + line + "\n";
             }
+		}
+
+		lines = output.split("\\r?\\n");
+		output = "";
+		for(int i = 0; i < lines.length; i++)
+		{
+			while(lines[i].length() < length) lines[i] += " ";
+			output += lines[i] + "\n";
 		}
 		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
 		return output;
