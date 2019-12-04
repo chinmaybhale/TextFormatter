@@ -1,17 +1,31 @@
-
+/**
+ * This is the main class for formatting the document
+ * its methods are called in Controller one by one in order
+ * of precedence to format the document
+ *
+ * @author Chinmay Bhale, Brian Dang, Henrique Mello, An Ngo
+ */
 package sample;
+
 import java.lang.String;
-import java.util.ArrayList;
+import java.util.*;
 
 
 class Formatter{
     protected int max = 80;
-    protected int align = 0;  // left = 0, right, centered, equal
+    protected static int align = 0;  // left = 0, right, centered, equal
     protected boolean wrap = false;
     protected boolean double_spaced = false;
     protected boolean two_column = false;
 
-    public String formatWrap(String inputString){
+	/**
+	 * This method formats the text to wrap or unwrap it by checking
+	 * for -w+ or -w-
+	 *
+	 * @param inputString which is the string which has to be formatted
+	 * @return output which is the formatted string
+	 */
+	public String formatWrap(String inputString){
         String output = "";
         String[] lines = inputString.split("\\r?\\n");
         for(String line : lines){
@@ -51,7 +65,14 @@ class Formatter{
         return output;
     }
 
-    public String formatTitle(String inputString){
+	/**
+	 * This method formats the the line below the title (-t) tag to
+	 * output it with "-" below it as underline
+	 *
+	 * @param inputString which is the string to format
+	 * @return output which is the formatted string
+	 */
+	public String formatTitle(String inputString){
         String output = "";
         boolean titleToken = false;
         int titleLength;
@@ -66,7 +87,10 @@ class Formatter{
                 for(int i = 0; i < titleLength; i++){
                     underline += "-";
                 }
-                line = centerJust(line, line.length()) + "\n" + centerJust(underline, line.length());
+                System.out.println(line);
+                System.out.println(line.length());
+                line = centerJust(line.trim(), line.length()) + "\n" + centerJust(underline, line.length());
+                System.out.println(line);
                 titleToken = false;
                 output = output + line + "\n";
                 //System.out.println(line);
@@ -80,7 +104,16 @@ class Formatter{
         return output;
     }
 
-    public String lineLength(String inputString)
+	/**
+	 * This method formats the text to fit into a certain line length
+	 * it will add extra spaces at the end if the line length is shorter than max
+	 * It gets the line length from the -n# command where # is the max number of characters
+	 * in one line
+	 *
+	 * @param inputString which is the string to format
+	 * @return output which is the formatted string
+	 */
+	public String lineLength(String inputString)
     {
         //int max = 80;
         
@@ -154,7 +187,15 @@ class Formatter{
         return output;
     }
 
-    public static String formatColumns(String inputString){
+	/**
+	 * This method formats the text into 2 columns if it encounters
+	 * the -a2 command. It also resets the line length to 80, and splits the columns
+	 * based on a 35/10/35 format.
+	 *
+	 * @param inputString which is the string to be formatted
+	 * @return output which is the formatted string
+	 */
+	public static String formatColumns(String inputString){
         ArrayList<ColumnBlock> blocks = new ArrayList<ColumnBlock>();
         ColumnBlock current = new ColumnBlock(1);
         String[] lines = inputString.split("\\r?\\n");
@@ -186,6 +227,15 @@ class Formatter{
 
         return out;
     }
+
+	/**
+	 * This command is called by justification to left justify the text
+	 * this is the default condition for the program
+	 *
+	 * @param input is the string to be formatted
+	 * @param lineLength is the max length of the line
+	 * @return output is the formatted string
+	 */
 	public String leftJust(String input, int lineLength) {		//this is the only method that assumes that input is longer than line length.
 		//input = input.trim();
 		String output = "";
@@ -200,11 +250,17 @@ class Formatter{
   		}
 	
 		return output;
-	}	
-	
-	
+	}
+
+	/**
+	 * This command is called by justification to right justify the text
+	 *
+	 * @param input is the string to be formatted
+	 * @param lineLength is the max length of the line
+	 * @return output is the formatted string
+	 */
     public String rightJust(String input, int lineLength) {
-		input = input.trim();
+		//input = input.trim();
 		char[] temp = input.toCharArray();
 		String output = "";
 		int counter = 0;
@@ -219,9 +275,7 @@ class Formatter{
 					section = section + 80;
 					System.out.println("Iteration was hit.");
 				}
-				
-				//String temp3 = new String(temp, section, 145);
-				//output = output + temp3 + "\n";
+
 				counter++;
 				
 			} else {		//if input length is less than line length;
@@ -240,10 +294,16 @@ class Formatter{
 	}
 		 
 
-
+	/**
+	 * This method is called by justification to center justify the text
+	 *
+	 * @param input is the string to be formatted
+	 * @param lineLength is the max line length
+	 * @return output is the formatted string
+	 */
 	public String centerJust(String input, int lineLength) {
 		String output = "";
-		input = input.trim();
+		//input = input.trim();
 		int spaces = lineLength - input.length();
 		if(spaces%2 == 1) {
 			output = output + " ";
@@ -260,10 +320,16 @@ class Formatter{
 		return output;
 	}
 
-
+	/**
+	 * This method is called by justification for equal justification
+	 *
+	 * @param input is the string to be formatted
+	 * @param lineLength is the max line length
+	 * @return output is the formatted string
+	 */
 	public String equalSpacing(String input, int lineLength) {
 		String output = "";
-		input = input.trim();
+		//input = input.trim();
 		String[] words = input.split(" ");
 
 		if(words.length == 1)
@@ -304,21 +370,39 @@ class Formatter{
 	}
 
 
-	public String doubleSpace(String input) {		//adds new line to the end output.
+	/**
+	 * This is a helper method for doubleSpaces. It adds an extra line between every line
+	 *
+	 * @param input is the string to be formatted
+	 * @return output is the formatted string
+	 */
+	private String doubleSpace(String input) {		//adds new line to the end output.
 		//input = input.trim();
 		String output = input + "\n";
 		return output;
 	}
-	
-	public String blankLines(int numLines) {
-		String output = "";
-		for(int i = 0; i < numLines; i++) {
-			output = output + "\n";
-		}
-				
-		return output;
-	}
-	
+
+	/**
+	 *
+	 * @param numLines
+	 * @return
+	 */
+//	private String blankLines(int numLines) {
+//		String output = "";
+//		for(int i = 0; i < numLines; i++) {
+//			output = output + "\n";
+//		}
+//
+//		return output;
+//	}
+
+	/**
+	 * This is the method which parses the program and justifies the text
+	 * according to the commands. The default is left justified
+	 *
+	 * @param input is the string to be formatted
+	 * @return output is the formatted string
+	 */
 	public String justification(String input) {
 		String output = "";
 		String[] lines = input.split("\\r?\\n");
@@ -354,6 +438,14 @@ class Formatter{
 		return output;
 	}
 
+	/**
+	 * This method adds extra spaces before the start of a line to indent it
+	 * it is called by using the -p# command where # is the number of spaces the user
+	 * wants before the start of the line
+	 *
+	 * @param input is the string to be formatted
+	 * @return output is the formatted string
+	 */
 	public String indentation(String input) {
     	boolean p = false;
     	int length = 0;
@@ -375,67 +467,67 @@ class Formatter{
 			else if (!line.startsWith("-") && p) {
 				if(p){
 				    p = false;
-					String indent = "";
-					for(int j = 0; j < number && j < length; j++)
-					{
-						indent += " ";
-					}
+//					String indent = "";
+//					for(int j = 0; j < number && j < length; j++)
+//					{
+//						indent += " ";
+//					}
+//
+//					output += indent;
+//					words = line.trim().split(" ");
+//
+//					int currentSize = indent.length();
+//					int max = length;
+//
+//					for(int index = 0; index < words.length; index++) {
+//						if (words[index].length() + currentSize <= max && (currentSize == 0 || index == 0)) {
+//							output += words[index];
+//							currentSize += words[index].length();
+//							index++;
+//
+//						} else if (words[index].length() + currentSize + 1 <= max) {
+//							output += " " + words[index];
+//							currentSize += words[index].length() + 1;
+//							index++;
+//						} else {
+//							if (words[index].length() > max && currentSize == 0) {
+//								output += words[index].substring(0, max);
+//								words[index] = words[index].substring(max);
+//							}
+//							currentSize = 0;
+//
+//							int startOfCurrentLine = 0 > output.lastIndexOf("\n") ? 0 : output.lastIndexOf("\n") + 1;
+//							while (output.substring(startOfCurrentLine).length() < max) output += " ";
+//
+//							output += "\n";
+//						}
+//					}
 
-					output += indent;
 					words = line.trim().split(" ");
-
-					int currentSize = indent.length();
-					int max = length;
-
-					for(int index = 0; index < words.length; index++) {
-						if (words[index].length() + currentSize <= max && (currentSize == 0 || index == 0)) {
-							output += words[index];
-							currentSize += words[index].length();
-							index++;
-
-						} else if (words[index].length() + currentSize + 1 <= max) {
-							output += " " + words[index];
-							currentSize += words[index].length() + 1;
-							index++;
-						} else {
-							if (words[index].length() > max && currentSize == 0) {
-								output += words[index].substring(0, max);
-								words[index] = words[index].substring(max);
-							}
-							currentSize = 0;
-
-							int startOfCurrentLine = 0 > output.lastIndexOf("\n") ? 0 : output.lastIndexOf("\n") + 1;
-							while (output.substring(startOfCurrentLine).length() < max) output += " ";
-
-							output += "\n";
+					line1 = number;
+					//adds indentations
+					for(int j = 1; j < number; j++){
+						firstLine += " ";
+					}
+					//make sure not longer than line length
+					for(int i = 0; i < words.length; i++){
+						if((firstLine.length() + words[i].length()) <= length) {
+							firstLine = firstLine + " " + words[i];
+						}
+						else{
+							secondLine += words[i] + " ";
 						}
 					}
-
-//					words = line.trim().split(" ");
-//					line1 = number;
-//					//adds indentations
-//					for(int j = 1; j < number; j++){
-//						firstLine += " ";
-//					}
-//					//make sure not longer than line length
-//					for(int i = 0; i < words.length; i++){
-//						if((firstLine.length() + words[i].length()) <= length) {
-//							firstLine = firstLine + " " + words[i];
-//						}
-//						else{
-//								secondLine = " " + words[i];
-//						}
-//					}
-//					line = firstLine;
-//					while(line.length() < length) line += " ";
-//					firstLine = "";
-//					if(secondLine.trim().length() != 0){
-//							line = line + "\n" + secondLine.trim();
-//                    }
-//					secondLine = "";
-//					output = output + line + " ";
-//					p = false;
-//				} else {
+					line = firstLine;
+					while(line.length() < length) line += " ";
+					firstLine = "";
+					if(secondLine.trim().length() != 0){
+							line = line + "\n" + secondLine.trim();
+                    }
+					secondLine = "";
+					output = output + line + " ";
+					p = false;
+				} else {
 //					words = line.trim().split(" ");
 //					//make sure not longer than line length
 //					for(int i = 0; i < words.length; i++){
@@ -447,9 +539,11 @@ class Formatter{
 //						else{
 //							if(!words[i].equals("\n"))
 //								secondLine = words[i] + " ";
-//						}zz
-//					}
+//						}
+					output += line + "\n";
+
 				}
+
 			}
 			else {
 			    output = output + line + "\n";
@@ -457,18 +551,82 @@ class Formatter{
 			if(output.length() > 0 && output.charAt(output.length() - 1) != '\n') output += "\n";
 		}
 
-		lines = output.split("\\r?\\n");
-		output = "";
-		for(int i = 0; i < lines.length; i++)
-		{
-			while(lines[i].length() < length) lines[i] += " ";
-			output += lines[i] + "\n";
-		}
-		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
+//		lines = output.split("\\r?\\n");
+//		output = "";
+//		for(int i = 0; i < lines.length; i++)
+//		{
+//			while(lines[i].length() < length) lines[i] += " ";
+//			output += lines[i] + "\n";
+//		}
+//		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
 		return output;
 	}
-	
-	public String doubleSpaces(String input){
+
+//	public String indent(String inputString) {
+//		boolean p = false;
+//		String lines[] = inputString.split("\\r?\\n");
+//		int number = 0, length;
+//		Stack<String> words = new Stack<>();
+//		String[] wordsInLine;
+//		String output = "";
+//
+//		for(int i = 0; i < lines.length; i++) {
+//			length = lines[i].length();
+//			System.out.println(length);
+//			//if see -p command, store indentation number;
+//			if (lines[i].startsWith("-p")) {
+//				number = Integer.parseInt(lines[i].trim().substring(2));
+//				p = true;
+//			} else if (!lines[i].startsWith("-") && p) {
+//
+//				for(int j = lines.length-1; j >= i; j--)
+//				{
+//					wordsInLine = lines[j].trim().split(" ");
+//
+//					for(int k = wordsInLine.length - 1; k >= 0; k--)
+//						words.push(wordsInLine[k]);
+//				}
+//
+//				for(int j = 0; j < number; j++) {
+//					words.push(" ");
+//				}
+//
+//				int j = 0;
+//				while(j < words.size())
+//				{
+//					if(j % length == 0) {
+//						output += words.pop() + " \n";
+//						System.out.println("in here");
+//						System.out.println(output);
+//					}
+//					else
+//					{
+//						output += words.pop() + " ";
+//
+//					}
+//					j++;
+//				}
+//
+//				p = false;
+//				output += "\n";
+//
+//			} else {
+//				output += lines[i] + "\n";
+//			}
+//		}
+//
+//		return output;
+//	}
+
+	/**
+	 * This method is called for double spacing the text. It uses the private method
+	 * doubleSpace for formatting the input.
+	 * It is called by the -d command
+	 *
+	 * @param input is the string to be formatted
+	 * @return output is the formatted string
+	 */
+	public String doubleSpaces(String input) {
 		String output = "";
 		String[] lines = input.split("\\r?\\n");
 		for(String line: lines) {
@@ -489,7 +647,14 @@ class Formatter{
 		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
 		return output;
 	}
-	
+
+	/**
+	 * This method add blocks of blank lines between 2 lines. It is called by the -b# command
+	 * where # is the number of blank lines to be inserted
+	 *
+	 * @param input is the string to be formatted
+	 * @return output is the formatted string
+	 */
 	public static String blankSpaces(String input) {
 		String out = "";
 		for(String line : input.split("\\r?\\n")){
@@ -515,6 +680,9 @@ class Formatter{
 	}	
 }
 
+/**
+ * This class is used for formatting the text to make columns. It is used by the formatColumns method
+ */
 class ColumnBlock{
     private int columns;
     String text;

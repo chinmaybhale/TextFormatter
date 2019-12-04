@@ -52,7 +52,7 @@ public class Controller {
         try {
             inputData = new String(Files.readAllBytes(file.toPath()));
         } catch (IOException error) {
-            //TODO: error case, file not found!
+            error.getSuppressed();
         }
 
         input.setFont(Font.font("monospaced"));
@@ -103,8 +103,8 @@ public class Controller {
         string = formatter.formatWrap(string);
         string = formatter.lineLength(string);
         string = formatter.justification(string);
-        //string = formatter.indentation(string);
-        string = formatter.doubleSpaces(string);
+        //string = formatter.indent(string);
+        //string = formatter.doubleSpaces(string);
         string = formatter.formatTitle(string);
         string = Formatter.blankSpaces(string);
         string = Formatter.formatColumns(string);
@@ -129,7 +129,7 @@ public class Controller {
             writer.write(outputData);
             writer.close();
         } catch (IOException e) {
-            //TODO: deal with this error
+            e.getSuppressed();
         }
     }
 }

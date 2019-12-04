@@ -81,6 +81,8 @@ public class Sanitize extends Formatter {
                                 }
                             break;
                             case "-p": // insert spaces
+                                for(int k = i + 1; k < lines.length; k++)
+                                    sanitize(lines[k]);
                                 if(align == 0) {
                                     try {
                                         Integer.parseInt(lines[i].substring(2));
