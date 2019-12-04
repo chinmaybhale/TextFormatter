@@ -187,7 +187,7 @@ class Formatter{
         return out;
     }
 	public String leftJust(String input, int lineLength) {		//this is the only method that assumes that input is longer than line length.
-		input = input.trim();
+		//input = input.trim();
 		String output = "";
 		char[] temp = input.toCharArray();
 		int i = 0;
@@ -257,7 +257,6 @@ class Formatter{
 		for(int i = 1; i <= (spaces/2); i++) {	//adds spaces in the back of sentence to make it equal to line length.
 			output = output + " ";
 		}
-		System.out.println(output);
 		return output;
 	}
 
