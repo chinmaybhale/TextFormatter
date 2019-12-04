@@ -406,7 +406,26 @@ class Formatter{
 					output = output + line + " ";
 					p = false;
 				} else {
-					output = output + line + "\n";
+					words = line.trim().split(" ");
+					//make sure not longer than line length
+					for(int i = 0; i < words.length; i++){
+						if((firstLine.length() + words[i].length()) <= max) {
+							firstLine = firstLine + " " + words[i];
+						}
+						else{
+							if(!words[i].equals("\n"))
+								secondLine = " " + words[i];
+						}
+					}
+					line = firstLine;
+					while(line.length() < length) line += " ";
+					firstLine = "";
+					if(secondLine.trim().length() != 0){
+							line = line + "\n" + secondLine.trim();
+                    }
+					secondLine = "";
+					output = output + line + " ";
+					//output = output + line + "\n";
 				}
 			}
 			else {
