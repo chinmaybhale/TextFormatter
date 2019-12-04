@@ -257,7 +257,7 @@ class Formatter{
 	 * @return output is the formatted string
 	 */
     public String rightJust(String input, int lineLength) {
-		//input = input.trim();
+		input = input.trim();
 		char[] temp = input.toCharArray();
 		String output = "";
 		int counter = 0;
@@ -300,7 +300,7 @@ class Formatter{
 	 */
 	public String centerJust(String input, int lineLength) {
 		String output = "";
-		//input = input.trim();
+		input = input.trim();
 		int spaces = lineLength - input.length();
 		if(spaces%2 == 1) {
 			output = output + " ";
