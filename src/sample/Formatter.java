@@ -311,7 +311,7 @@ class Formatter{
 
 
 	public String doubleSpace(String input) {		//adds new line to the end output.
-		input = input.trim();
+		//input = input.trim();
 		String output = input + "\n";
 		return output;
 	}
