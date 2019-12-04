@@ -92,15 +92,18 @@ class Formatter{
 				if(line.length() > 2 && line.trim().substring(0,3).equals("-a2"))
                 {
                         max = 35;
+                        out = "-n35";
                 }
 				if(line.length() > 2 && line.trim().substring(0,3).equals("-a1"))
                 {
                         max = 80;
+                        out = "-n80";
                 }
 
                 if(line.length() > 2 && line.trim().substring(0,2).equals("-n"))
                 {
                         max = Integer.parseInt(line.trim().substring(2));
+                        out = line;
                 }
                 else{
                     String[] words = line.split(" ");
@@ -356,7 +359,7 @@ class Formatter{
 
 	public String indentation(String input) {
     	boolean p = false;
-    	int length = 0;
+    	int length = 80;
 		String output = "";
 		String[] lines = input.split("\\r?\\n");
 		int line1 = 0;
@@ -368,11 +371,14 @@ class Formatter{
 		for(String line: lines) {
 			length = line.length();
 		    //if see -p command, store indentation number;
-			if(line.startsWith("-p")) {
+			if(line.startsWith("-n")){
+                length = Integer.parseInt(line.trim().substring(2));
+            }
+            else if(line.startsWith("-p")) {
 				number = Integer.parseInt(line.trim().substring(2));
 				p = true;
 			}
-			else if (!line.startsWith("-") && p) {
+			else if (!line.startsWith("-")) {
 				if(p){
 				    p = false;
 					String indent = "";
@@ -387,7 +393,7 @@ class Formatter{
 					int currentSize = indent.length();
 					int max = length;
 
-					for(int index = 0; index < words.length; index++) {
+					for(int index = 0; index < words.length; index = index) {
 						if (words[index].length() + currentSize <= max && (currentSize == 0 || index == 0)) {
 							output += words[index];
 							currentSize += words[index].length();
@@ -402,7 +408,7 @@ class Formatter{
 								output += words[index].substring(0, max);
 								words[index] = words[index].substring(max);
 							}
-							currentSize = 0;
+							currentSize = output.contains("\n") ? output.length() - output.lastIndexOf('\n') : 0;
 
 							int startOfCurrentLine = 0 > output.lastIndexOf("\n") ? 0 : output.lastIndexOf("\n") + 1;
 							while (output.substring(startOfCurrentLine).length() < max) output += " ";
@@ -447,15 +453,15 @@ class Formatter{
 //						else{
 //							if(!words[i].equals("\n"))
 //								secondLine = words[i] + " ";
-//						}zz
+//						}
 //					}
 				}
+                else {
+                    output = output + line + "\n";
+                }
 			}
-			else {
-			    output = output + line + "\n";
-            }
-			if(output.length() > 0 && output.charAt(output.length() - 1) != '\n') output += "\n";
 		}
+        if(output.length() > 0 && output.charAt(output.length() - 1) != '\n') output += "\n";
 
 		lines = output.split("\\r?\\n");
 		output = "";
