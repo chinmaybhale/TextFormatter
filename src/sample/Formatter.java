@@ -8,7 +8,7 @@
 package sample;
 
 import java.lang.String;
-import java.util.*;
+import java.util.ArrayList;
 
 
 class Formatter{
@@ -49,7 +49,7 @@ class Formatter{
                 }
                 else{
                     if(wrap){
-                        output = "\n" + line + "\n";
+                        output = output + "\n" + line + "\n";
                     }
                     else{
 						if(!output.endsWith("\n")){
@@ -87,10 +87,7 @@ class Formatter{
                 for(int i = 0; i < titleLength; i++){
                     underline += "-";
                 }
-                System.out.println(line);
-                System.out.println(line.length());
-                line = centerJust(line.trim(), line.length()) + "\n" + centerJust(underline, line.length());
-                System.out.println(line);
+                line = centerJust(line, line.length()) + "\n" + centerJust(underline, line.length());
                 titleToken = false;
                 output = output + line + "\n";
                 //System.out.println(line);
@@ -467,19 +464,73 @@ class Formatter{
 			else if (!line.startsWith("-") && p) {
 				if(p){
 				    p = false;
-//					String indent = "";
-//					for(int j = 0; j < number && j < length; j++)
-//					{
-//						indent += " ";
+					String indent = "";
+					for(int j = 0; j < number && j < length; j++)
+					{
+						indent += " ";
+					}
+
+					output += indent;
+					words = line.trim().split(" ");
+
+					int currentSize = indent.length();
+					int max = length;
+
+					for(int index = 0; index < words.length; index++) {
+						if (words[index].length() + currentSize <= max && (currentSize == 0 || index == 0)) {
+							output += words[index];
+							currentSize += words[index].length();
+							index++;
+
+						} else if (words[index].length() + currentSize + 1 <= max) {
+							output += " " + words[index];
+							currentSize += words[index].length() + 1;
+							index++;
+						} else {
+							if (words[index].length() > max && currentSize == 0) {
+								output += words[index].substring(0, max);
+								words[index] = words[index].substring(max);
+							}
+							currentSize = 0;
+
+							int startOfCurrentLine = 0 > output.lastIndexOf("\n") ? 0 : output.lastIndexOf("\n") + 1;
+							while (output.substring(startOfCurrentLine).length() < max) output += " ";
+
+							output += "\n";
+						}
+					}
+
+//					words = line.trim().split(" ");
+//					line1 = number;
+//					//adds indentations
+//					for(int j = 1; j < number; j++){
+//						firstLine += " ";
 //					}
-//
-//					output += indent;
+//					//make sure not longer than line length
+//					for(int i = 0; i < words.length; i++){
+//						if((firstLine.length() + words[i].length()) <= length) {
+//							firstLine = firstLine + " " + words[i];
+//						}
+//						else{
+//								secondLine = " " + words[i];
+//						}
+//					}
+//					line = firstLine;
+//					while(line.length() < length) line += " ";
+//					firstLine = "";
+//					if(secondLine.trim().length() != 0){
+//							line = line + "\n" + secondLine.trim();
+//                    }
+//					secondLine = "";
+//					output = output + line + " ";
+//					p = false;
+//				} else {
 //					words = line.trim().split(" ");
 //
 //					int currentSize = indent.length();
 //					int max = length;
 //
-//					for(int index = 0; index < words.length; index++) {
+//					for(int index = 0; index < words.length; index = index) {
 //						if (words[index].length() + currentSize <= max && (currentSize == 0 || index == 0)) {
 //							output += words[index];
 //							currentSize += words[index].length();
@@ -502,40 +553,65 @@ class Formatter{
 //							output += "\n";
 //						}
 //					}
-
-					words = line.trim().split(" ");
-					line1 = number;
-					//adds indentations
-					for(int j = 1; j < number; j++){
-						firstLine += " ";
-					}
-					//make sure not longer than line length
-					for(int i = 0; i < words.length; i++){
-						if((firstLine.length() + words[i].length()) <= length) {
-							firstLine = firstLine + " " + words[i];
-						}
-						else{
-							secondLine += words[i] + " ";
-						}
-					}
-					line = firstLine;
-					while(line.length() < length) line += " ";
-					firstLine = "";
-					if(secondLine.trim().length() != 0){
-							line = line + "\n" + secondLine.trim();
-                    }
-					secondLine = "";
-					output = output + line + " ";
-					p = false;
-				} else {
-//					words = line.trim().split(" ");
-//					//make sure not longer than line length
-//					for(int i = 0; i < words.length; i++){
-//						int len = 0;
-//						if(len + words[i].length())
-//						if((firstLine.length() + words[i].length()) <= max) {
-//							firstLine = firstLine + words[i] + " ";
-//						}
+//
+////					words = line.trim().split(" ");
+////					line1 = number;
+////					//adds indentations
+////					for(int j = 1; j < number; j++){
+////						firstLine += " ";
+////					}
+////					//make sure not longer than line length
+////					for(int i = 0; i < words.length; i++){
+////						if((firstLine.length() + words[i].length()) <= length) {
+////							firstLine = firstLine + " " + words[i];
+////						}
+////						else{
+////								secondLine = " " + words[i];
+////						}
+////					}
+////					line = firstLine;
+////					while(line.length() < length) line += " ";
+////					firstLine = "";
+////					if(secondLine.trim().length() != 0){
+////							line = line + "\n" + secondLine.trim();
+////                    }
+////					secondLine = "";
+////					output = output + line + " ";
+////					p = false;
+////				} else {
+////					words = line.trim().split(" ");
+////					//make sure not longer than line length
+////					for(int i = 0; i < words.length; i++){
+////						int len = 0;
+////						if(len + words[i].length())
+////						if((firstLine.length() + words[i].length()) <= max) {
+////							firstLine = firstLine + words[i] + " ";
+////						}
+////						else{
+////							if(!words[i].equals("\n"))
+////								secondLine = words[i] + " ";
+////						}
+////					}
+//				}
+//                else {
+//                    output = output + line + "\n";
+//                }
+//			}
+//            else {
+//                output = output + line + "\n";
+//            }
+//		}
+//        if(output.length() > 0 && output.charAt(output.length() - 1) != '\n') output += "\n";
+//
+//		lines = output.split("\\r?\\n");
+//		output = "";
+//		for(int i = 0; i < lines.length; i++)
+//		{
+//			while(lines[i].length() < length) lines[i] += " ";
+//			output += lines[i] + "\n";
+//		}
+//		while(output.length() > 0 && output.charAt(output.length() - 1) == '\n') output = output.substring(0, output.length() - 1);
+//		return output;
 //						else{
 //							if(!words[i].equals("\n"))
 //								secondLine = words[i] + " ";
